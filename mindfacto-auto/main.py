@@ -132,6 +132,35 @@ def _generated(n):
     return paths
 
 
+def _ai_images(keywords, n):
+    """key के बिना: Pollinations से हर सीन की तस्वीर बनवाकर धीमे ज़ूम वाली क्लिप बनाता है।"""
+    import urllib.parse
+    paths = []
+    for i in range(n):
+        kw = keywords[i % len(keywords)]
+        prompt = f"{kw}, realistic photo, cinematic lighting, vertical, high detail, no text"
+        url = "https://image.pollinations.ai/prompt/" + urllib.parse.quote(prompt) + f"?width=1080&height=1920&nologo=true&seed={random.randint(1, 99999)}"
+        img = WORK / f"img{i}.jpg"
+        ok = False
+        for attempt in range(3):
+            try:
+                r = requests.get(url, timeout=120, headers={"User-Agent": "Mozilla/5.0"})
+                if r.status_code == 200 and len(r.content) > 20000 and r.headers.get("content-type", "").startswith("image"):
+                    img.write_bytes(r.content); ok = True; break
+                print(f"Pollinations {kw}: HTTP {r.status_code} {len(r.content)}B (try {attempt + 1})")
+            except requests.RequestException as e:
+                print("Pollinations error:", e)
+            time.sleep(8)
+        if not ok: continue
+        out = WORK / f"raw{len(paths)}.mp4"
+        zoom = random.choice(["min(zoom+0.0009,1.3)", "if(eq(on,1),1.3,max(zoom-0.0009,1.0))"])
+        sh(["ffmpeg", "-y", "-loop", "1", "-i", str(img), "-t", "8", "-vf",
+            f"scale=2160:3840:force_original_aspect_ratio=increase,crop=2160:3840,zoompan=z='{zoom}':d=240:s=1080x1920:fps=30,format=yuv420p",
+            "-c:v", "libx264", "-preset", "veryfast", str(out)])
+        paths.append(out)
+    return paths
+
+
 def fetch_clips(keywords, n):
     paths = []
     if os.getenv("PEXELS_API_KEY"):
@@ -144,6 +173,11 @@ def fetch_clips(keywords, n):
             paths = _pixabay(keywords, n)
             if len(paths) >= 2: SOURCE["name"] = "Pixabay"
         except Exception as e: print("Pixabay failed:", e)
+    if len(paths) < 2:
+        try:
+            paths = _ai_images(keywords, n)
+            if len(paths) >= 2: SOURCE["name"] = "AI images (Pollinations)"
+        except Exception as e: print("AI images failed:", e)
     if len(paths) < 2:
         print("फ़ुटेज नहीं मिला, बनी हुई बैकग्राउंड इस्तेमाल हो रही है")
         paths = _generated(n)
