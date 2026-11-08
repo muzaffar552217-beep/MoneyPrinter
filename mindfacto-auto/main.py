@@ -1,5 +1,5 @@
 """MindFacto auto Shorts: Gemini script -> edge-tts Hindi voice -> Pexels clips -> ffmpeg -> YouTube."""
-import asyncio, json, os, pathlib, random, re, subprocess, sys
+import asyncio, json, os, pathlib, random, re, subprocess, sys, time
 import requests
 
 WORK = pathlib.Path("work"); WORK.mkdir(exist_ok=True)
@@ -34,13 +34,27 @@ Return ONLY JSON with keys:
   "keywords": list of 6 English stock-video search words (visual, concrete, e.g. "brain", "city night", "person thinking"),
   "description": 2 Hindi lines + hashtags #Shorts #MindFacto #lifehacks,
   "tags": list of up to 8 short tags."""
-    r = requests.post(
-        f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent",
-        headers={"x-goog-api-key": os.environ["GEMINI_API_KEY"]},
-        json={"contents": [{"parts": [{"text": prompt}]}],
-              "generationConfig": {"responseMimeType": "application/json", "temperature": 1.0}},
-        timeout=120)
-    r.raise_for_status()
+    models = [MODEL] + [m for m in ("gemini-flash-latest", "gemini-2.5-flash", "gemini-flash-lite-latest", "gemini-2.5-flash-lite") if m != MODEL]
+    r = None
+    for model in models:
+        for attempt in range(4):
+            try:
+                r = requests.post(
+                    f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+                    headers={"x-goog-api-key": os.environ["GEMINI_API_KEY"]},
+                    json={"contents": [{"parts": [{"text": prompt}]}],
+                          "generationConfig": {"responseMimeType": "application/json", "temperature": 1.0}},
+                    timeout=120)
+            except requests.RequestException as e:
+                print(f"{model}: network error {e}"); r = None; time.sleep(10); continue
+            if r.status_code == 200:
+                print("Gemini model:", model); break
+            print(f"{model}: HTTP {r.status_code} (try {attempt + 1})")
+            if r.status_code in (429, 500, 503): time.sleep(15 * (attempt + 1)); continue
+            break  # 400/403/404: दूसरा मॉडल आज़माओ
+        if r is not None and r.status_code == 200: break
+    if r is None or r.status_code != 200:
+        raise SystemExit(f"Gemini नहीं चला: {None if r is None else r.status_code} {None if r is None else r.text[:300]}")
     data = json.loads(r.json()["candidates"][0]["content"]["parts"][0]["text"])
     if isinstance(data, list): data = data[0]
     for k in ("title", "script", "keywords", "description", "tags"):
