@@ -6,7 +6,7 @@ WORK = pathlib.Path("work"); WORK.mkdir(exist_ok=True)
 HIST = pathlib.Path("history.json")
 TOPIC = os.getenv("TOPIC", "everyday life hacks")
 VOICE = os.getenv("VOICE", "hi-IN-MadhurNeural")
-MODEL = os.getenv("GEMINI_MODEL", "gemini-flash-latest")
+MODEL = os.getenv("GEMINI_MODEL", "gemini-flash-lite-latest")
 PRIVACY = os.getenv("PRIVACY", "public")
 DRY = os.getenv("DRY_RUN", "0") == "1"
 SOURCE = {"name": ""}
@@ -227,8 +227,8 @@ def main():
     ass = make_ass(meta["script"], dur)
     final = assemble(clips, voice, dur, ass)
     print("Video ready:", final)
-    if DRY:
-        print("DRY_RUN: upload skipped"); return
+    if DRY or not os.getenv("YT_REFRESH_TOKEN"):
+        print("अपलोड छोड़ा गया (DRY_RUN या YouTube की key नहीं है). वीडियो Artifacts में मिलेगी।"); return
     upload(final, meta)
     hist.append(meta["title"]); HIST.write_text(json.dumps(hist[-200:], ensure_ascii=False, indent=1))
 
