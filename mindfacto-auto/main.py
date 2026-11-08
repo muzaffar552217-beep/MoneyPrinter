@@ -6,6 +6,8 @@ WORK = pathlib.Path("work"); WORK.mkdir(exist_ok=True)
 HIST = pathlib.Path("history.json")
 TOPIC = os.getenv("TOPIC", "everyday life hacks")
 VOICE = os.getenv("VOICE", "hi-IN-MadhurNeural")
+RATE = os.getenv("VOICE_RATE", "+18%")
+PITCH = os.getenv("VOICE_PITCH", "+3Hz")
 MODEL = os.getenv("GEMINI_MODEL", "gemini-flash-lite-latest")
 PRIVACY = os.getenv("PRIVACY", "public")
 DRY = os.getenv("DRY_RUN", "0") == "1"
@@ -40,7 +42,7 @@ Return ONLY JSON with these keys:
   "description": 2 Hindi lines + hashtags #Shorts #MindFacto #lifehacks,
   "tags": list of up to 8 short tags,
   "scenes": list of 7 objects in story order. Each object has:
-     "narration": one or two SHORT Hindi sentences in Devanagari. All narrations together are 90-110 words. Scene 1 is a strong hook, the last scene ends with a question or asks to follow.
+     "narration": one or two SHORT, punchy Hindi sentences in Devanagari, spoken like an excited friend sharing a secret (lively, conversational, use ! and ? naturally, no formal or bookish words). All narrations together are 90-110 words. Scene 1 is a strong hook, the last scene ends with a question or asks to follow.
      "query": 2-3 English words for a stock-video search that show EXACTLY what this narration talks about. Concrete, visible and filmable, e.g. "pouring tea", "washing dishes", "hands cutting lemon". Never abstract words like "smart ideas" or "life hacks".
      "alt": one simple English noun for the main object in this scene, e.g. "tea cup"."""
     models = [MODEL] + [m for m in ("gemini-flash-lite-latest", "gemini-flash-latest", "gemini-2.5-flash", "gemini-2.5-flash-lite") if m != MODEL]
@@ -80,7 +82,7 @@ async def _tts_all(texts, paths):
     for t, p in zip(texts, paths):
         for attempt in range(3):
             try:
-                await edge_tts.Communicate(t, VOICE).save(str(p)); break
+                await edge_tts.Communicate(t, VOICE, rate=RATE, pitch=PITCH).save(str(p)); break
             except Exception as e:
                 print("TTS retry:", e); await asyncio.sleep(3)
         else:
@@ -119,19 +121,53 @@ def _find_pexels(q):
     return None
 
 
-def _find_pixabay(q):
+def _pixabay_cands(q):
     r = requests.get("https://pixabay.com/api/videos/", timeout=60,
-                     params={"key": os.environ["PIXABAY_API_KEY"], "q": q, "per_page": 8, "safesearch": "true"})
-    if r.status_code != 200: return None
-    hits = [h for h in r.json().get("hits", []) if ("x", h["id"]) not in USED]
-    top = hits[:5]  # सबसे मेल खाते नतीजे
-    random.shuffle(top)
-    for h in top:
+                     params={"key": os.environ["PIXABAY_API_KEY"], "q": q, "per_page": 12, "safesearch": "true"})
+    if r.status_code != 200: return []
+    out = []
+    for h in r.json().get("hits", []):
+        if ("x", h["id"]) in USED: continue
         v = h.get("videos", {})
-        url = (v.get("medium") or {}).get("url") or (v.get("small") or {}).get("url")
-        if url:
-            USED.add(("x", h["id"])); return url, "Pixabay"
-    return None
+        m = v.get("medium") or v.get("small") or {}
+        if m.get("url"):
+            out.append({"id": h["id"], "url": m["url"], "thumb": m.get("thumbnail") or (v.get("small") or {}).get("thumbnail")})
+        if len(out) >= 6: break
+    return out
+
+
+def pick_best(narration, query, cands):
+    """Gemini छोटी तस्वीरें देखकर बताता है कि कौन-सी क्लिप इस वाक्य से सबसे ज़्यादा मेल खाती है। -1 = कोई नहीं।"""
+    import base64
+    parts = [{"text": f"A short vertical video scene says (Hindi): {narration}\nStock-video search used: {query}\n"
+                      "Below are candidate thumbnails numbered from 0. Choose the ONE that best and most literally shows what the scene talks about "
+                      "(clear, realistic, not abstract). If none really matches, answer -1. Reply ONLY JSON like {\"best\": 2}."}]
+    used = 0
+    for i, c in enumerate(cands):
+        if not c.get("thumb"): continue
+        try:
+            img = requests.get(c["thumb"], timeout=30).content
+            parts.append({"text": f"Image {i}:"})
+            parts.append({"inlineData": {"mimeType": "image/jpeg", "data": base64.b64encode(img).decode()}})
+            used += 1
+        except Exception as e:
+            print("thumb failed:", e)
+    if used == 0: return 0
+    for attempt in range(3):
+        try:
+            r = requests.post("https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent",
+                              headers={"x-goog-api-key": os.environ["GEMINI_API_KEY"]},
+                              json={"contents": [{"parts": parts}], "generationConfig": {"responseMimeType": "application/json", "temperature": 0}},
+                              timeout=90)
+            if r.status_code == 200:
+                v = json.loads(r.json()["candidates"][0]["content"]["parts"][0]["text"])
+                idx = int(v["best"] if isinstance(v, dict) else v[0]["best"])
+                return idx if -1 <= idx < len(cands) else 0
+            print("pick_best HTTP", r.status_code)
+            time.sleep(8 * (attempt + 1))
+        except Exception as e:
+            print("pick_best error:", e); time.sleep(5)
+    return 0
 
 
 def _generated(idx, dur):
@@ -143,24 +179,36 @@ def _generated(idx, dur):
 
 
 def scene_clip(scene, idx, dur):
-    finders = []
-    if os.getenv("PEXELS_API_KEY"): finders.append(_find_pexels)
-    if os.getenv("PIXABAY_API_KEY"): finders.append(_find_pixabay)
-    for q in (scene.get("query"), scene.get("alt")):
-        if not q: continue
-        for find in finders:
+    out = WORK / f"raw{idx}.mp4"
+    queries = [q for q in (scene.get("query"), scene.get("alt")) if q]
+    first_cands = None
+    if os.getenv("PIXABAY_API_KEY"):
+        for q in queries:
+            try: cands = _pixabay_cands(q)
+            except Exception as e: print(f"pixabay '{q}' failed: {e}"); continue
+            if not cands: continue
+            first_cands = first_cands or cands
+            best = pick_best(scene["narration"], q, cands)
+            time.sleep(4)
+            print(f"scene {idx}: '{q}' -> candidate {best} of {len(cands)}")
+            if best >= 0:
+                c = cands[best]
+                try:
+                    _download(c["url"], out); USED.add(("x", c["id"])); SOURCE["name"] = SOURCE["name"] or "Pixabay"
+                    return out
+                except Exception as e: print("download failed:", e)
+        if first_cands:  # कोई भी पूरी तरह मेल नहीं खाया तो पहली क्लिप ले लो
             try:
-                res = find(q)
-            except Exception as e:
-                print(f"{find.__name__} '{q}' failed: {e}"); continue
-            if res:
-                out = WORK / f"raw{idx}.mp4"
-                try: _download(res[0], out)
-                except Exception as e: print("download failed:", e); continue
-                SOURCE["name"] = SOURCE["name"] or res[1]
-                print(f"scene {idx}: '{q}' -> {res[1]}")
+                _download(first_cands[0]["url"], out); USED.add(("x", first_cands[0]["id"])); SOURCE["name"] = SOURCE["name"] or "Pixabay"
                 return out
-        time.sleep(0.7)
+            except Exception as e: print("download failed:", e)
+    if os.getenv("PEXELS_API_KEY"):
+        for q in queries:
+            try: res = _find_pexels(q)
+            except Exception as e: print("pexels failed:", e); continue
+            if res:
+                try: _download(res[0], out); SOURCE["name"] = SOURCE["name"] or "Pexels"; return out
+                except Exception as e: print("download failed:", e)
     print(f"scene {idx}: फ़ुटेज नहीं मिला, बैकग्राउंड")
     return _generated(idx, dur)
 
@@ -194,13 +242,33 @@ def make_ass(scenes, durs):
 
 
 # 5) वीडियो जोड़ना -----------------------------------------------------------------
+def _dims(path):
+    w, h = sh(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height",
+               "-of", "csv=p=0:s=x", str(path)]).strip().split("x")
+    return int(w), int(h)
+
+
+def _vf(c, seg):
+    w, h = _dims(c)
+    frames = max(int(seg * 30), 30)
+    grade = "eq=contrast=1.04:saturation=1.08"
+    zoom = f"zoompan=z='min(1+0.0004*on,1.07)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1080x1920:fps=30"
+    if w / h <= 0.75:  # खड़ी क्लिप: पूरा फ़्रेम भरो
+        base = "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30,setsar=1"
+        return f"{base},{zoom},{grade}"
+    # चौड़ी क्लिप: बीच में थोड़ी बड़ी तस्वीर, पीछे उसी की धुंधली परत (कम कटाव, ज़्यादा बाहर का दृश्य)
+    return ("split[a][b];[b]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=28:6[bg];"
+            "[a]scale=1250:-2:force_original_aspect_ratio=decrease,crop='min(iw,1080)':ih[fg];"
+            f"[bg][fg]overlay=(W-w)/2:(H-h)/2,fps=30,setsar=1,{zoom},{grade}")
+
+
 def assemble(clips, durs, voice, ass):
     norm = []
     for i, (c, d) in enumerate(zip(clips, durs)):
         seg = d + (0.15 if i == len(clips) - 1 else 0)
         o = WORK / f"seg{i}.mp4"
         sh(["ffmpeg", "-y", "-stream_loop", "-1", "-i", str(c), "-t", f"{seg:.3f}",
-            "-vf", "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30,setsar=1",
+            "-vf", _vf(c, seg),
             "-an", "-c:v", "libx264", "-preset", "veryfast", "-crf", "23", "-pix_fmt", "yuv420p", str(o)])
         norm.append(o)
     lst = WORK / "list.txt"
