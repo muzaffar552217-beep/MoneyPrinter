@@ -61,28 +61,73 @@ def make_voice(text):
     return p, dur
 
 
-# 3) फ़ुटेज ----------------------------------------------------------------
-def fetch_clips(keywords, n):
+# 3) फ़ुटेज (Pexels -> Pixabay -> अपने आप बनी बैकग्राउंड) -----------------------
+def _download(url, out):
+    with requests.get(url, stream=True, timeout=120) as d:
+        d.raise_for_status()
+        with open(out, "wb") as fh:
+            for chunk in d.iter_content(1 << 20): fh.write(chunk)
+
+
+def _pexels(keywords, n):
     headers = {"Authorization": os.environ["PEXELS_API_KEY"]}
     paths = []
-    for i, kw in enumerate((keywords * 3)[: n * 2]):
+    for kw in (keywords * 3)[: n * 2]:
         if len(paths) >= n: break
         r = requests.get("https://api.pexels.com/videos/search", headers=headers, timeout=60,
                          params={"query": kw, "orientation": "portrait", "per_page": 10})
         if r.status_code != 200: continue
-        vids = r.json().get("videos", [])
-        random.shuffle(vids)
+        vids = r.json().get("videos", []); random.shuffle(vids)
         for v in vids:
             files = [f for f in v["video_files"] if f.get("file_type") == "video/mp4" and f.get("width", 0) >= 720]
             if not files: continue
-            f = min(files, key=lambda x: x["width"])
             out = WORK / f"raw{len(paths)}.mp4"
-            with requests.get(f["link"], stream=True, timeout=120) as d:
-                d.raise_for_status()
-                with open(out, "wb") as fh:
-                    for chunk in d.iter_content(1 << 20): fh.write(chunk)
+            _download(min(files, key=lambda x: x["width"])["link"], out)
             paths.append(out); break
-    if len(paths) < 2: raise SystemExit("Pexels से पर्याप्त क्लिप नहीं मिलीं")
+    return paths
+
+
+def _pixabay(keywords, n):
+    paths = []
+    for kw in (keywords * 3)[: n * 2]:
+        if len(paths) >= n: break
+        r = requests.get("https://pixabay.com/api/videos/", timeout=60,
+                         params={"key": os.environ["PIXABAY_API_KEY"], "q": kw, "per_page": 10, "safesearch": "true"})
+        if r.status_code != 200: continue
+        hits = r.json().get("hits", []); random.shuffle(hits)
+        for h in hits:
+            url = (h.get("videos", {}).get("medium") or {}).get("url") or (h.get("videos", {}).get("small") or {}).get("url")
+            if not url: continue
+            out = WORK / f"raw{len(paths)}.mp4"
+            _download(url, out)
+            paths.append(out); break
+    return paths
+
+
+def _generated(n):
+    """कोई key न हो तो रंग बदलती साफ़ बैकग्राउंड बनाता है।"""
+    colors = ["2b5876", "4e4376", "134e5e", "614385", "0f2027", "7b4397", "1d4350", "42275a"]
+    random.shuffle(colors)
+    paths = []
+    for i in range(n):
+        out = WORK / f"raw{i}.mp4"
+        sh(["ffmpeg", "-y", "-f", "lavfi", "-i", f"color=c=0x{colors[i % len(colors)]}:s=1080x1920:r=30:d=8",
+            "-vf", "hue=h=t*18:s=1.3,vignette=PI/4", "-c:v", "libx264", "-preset", "veryfast", "-pix_fmt", "yuv420p", str(out)])
+        paths.append(out)
+    return paths
+
+
+def fetch_clips(keywords, n):
+    paths = []
+    if os.getenv("PEXELS_API_KEY"):
+        try: paths = _pexels(keywords, n)
+        except Exception as e: print("Pexels failed:", e)
+    if len(paths) < 2 and os.getenv("PIXABAY_API_KEY"):
+        try: paths = _pixabay(keywords, n)
+        except Exception as e: print("Pixabay failed:", e)
+    if len(paths) < 2:
+        print("फ़ुटेज नहीं मिला, बनी हुई बैकग्राउंड इस्तेमाल हो रही है")
+        paths = _generated(n)
     return paths
 
 
