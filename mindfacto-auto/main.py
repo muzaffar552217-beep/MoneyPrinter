@@ -47,7 +47,6 @@ Return ONLY JSON with these keys:
      "query": 1-3 simple English words, the most common stock-footage term for what is shown in this scene, e.g. "pouring tea", "washing dishes", "cutting lemon", "garlic cloves". Concrete and visible, never abstract words like "smart ideas".
      "alt": one simple English noun for the main object of the whole life hack, e.g. "garlic" (same noun is fine in many scenes),
      "alt2": a very common general setting or action word, e.g. "kitchen", "hands", "cooking", "home"."""
-"""
     models = [MODEL] + [m for m in ("gemini-flash-lite-latest", "gemini-flash-latest", "gemini-2.5-flash", "gemini-2.5-flash-lite") if m != MODEL]
     r = None
     for model in models:
