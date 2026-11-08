@@ -273,10 +273,12 @@ def main():
     ass = make_ass(meta["script"], dur)
     final = assemble(clips, voice, dur, ass)
     print("Video ready:", final)
-    if DRY or not os.getenv("YT_REFRESH_TOKEN"):
-        print("अपलोड छोड़ा गया (DRY_RUN या YouTube की key नहीं है). वीडियो Artifacts में मिलेगी।"); return
-    upload(final, meta)
-    hist.append(meta["title"]); HIST.write_text(json.dumps(hist[-200:], ensure_ascii=False, indent=1))
+    if not (DRY or not os.getenv("YT_REFRESH_TOKEN")):
+        upload(final, meta)
+    else:
+        print("अपलोड छोड़ा गया (DRY_RUN या YouTube की key नहीं है). वीडियो Artifacts में मिलेगी।")
+    if not DRY:  # असली रन में टाइटल याद रखो ताकि टॉपिक दोबारा न आए
+        hist.append(meta["title"]); HIST.write_text(json.dumps(hist[-200:], ensure_ascii=False, indent=1))
 
 
 if __name__ == "__main__":
