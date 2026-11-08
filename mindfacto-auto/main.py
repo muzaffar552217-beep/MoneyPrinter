@@ -6,13 +6,14 @@ WORK = pathlib.Path("work"); WORK.mkdir(exist_ok=True)
 HIST = pathlib.Path("history.json")
 TOPIC = os.getenv("TOPIC", "everyday life hacks")
 VOICE = os.getenv("VOICE", "hi-IN-MadhurNeural")
-RATE = os.getenv("VOICE_RATE", "+18%")
+RATE = os.getenv("VOICE_RATE", "+25%")
 PITCH = os.getenv("VOICE_PITCH", "+3Hz")
 MODEL = os.getenv("GEMINI_MODEL", "gemini-flash-lite-latest")
 PRIVACY = os.getenv("PRIVACY", "public")
 DRY = os.getenv("DRY_RUN", "0") == "1"
 SOURCE = {"name": ""}
 USED = set()
+TITLE = {'t': ''}
 
 
 def sh(cmd):
@@ -42,9 +43,11 @@ Return ONLY JSON with these keys:
   "description": 2 Hindi lines + hashtags #Shorts #MindFacto #lifehacks,
   "tags": list of up to 8 short tags,
   "scenes": list of 7 objects in story order. Each object has:
-     "narration": one or two SHORT, punchy Hindi sentences in Devanagari, spoken like an excited friend sharing a secret (lively, conversational, use ! and ? naturally, no formal or bookish words). All narrations together are 90-110 words. Scene 1 is a strong hook, the last scene ends with a question or asks to follow.
-     "query": 2-3 English words for a stock-video search that show EXACTLY what this narration talks about. Concrete, visible and filmable, e.g. "pouring tea", "washing dishes", "hands cutting lemon". Never abstract words like "smart ideas" or "life hacks".
-     "alt": one simple English noun for the main object in this scene, e.g. "tea cup"."""
+     "narration": one or two SHORT, punchy Hindi sentences in Devanagari, spoken like an excited friend sharing a secret (lively, conversational, use ! and ? naturally, no formal or bookish words). All narrations together are 75-90 words in total (short and fast). Scene 1 is a strong hook, the last scene ends with a question or asks to follow.
+     "query": 1-3 simple English words, the most common stock-footage term for what is shown in this scene, e.g. "pouring tea", "washing dishes", "cutting lemon", "garlic cloves". Concrete and visible, never abstract words like "smart ideas".
+     "alt": one simple English noun for the main object of the whole life hack, e.g. "garlic" (same noun is fine in many scenes),
+     "alt2": a very common general setting or action word, e.g. "kitchen", "hands", "cooking", "home"."""
+"""
     models = [MODEL] + [m for m in ("gemini-flash-lite-latest", "gemini-flash-latest", "gemini-2.5-flash", "gemini-2.5-flash-lite") if m != MODEL]
     r = None
     for model in models:
@@ -121,7 +124,7 @@ def _find_pexels(q):
     return None
 
 
-def _pixabay_cands(q):
+def _pixabay_cands(q, limit=4):
     r = requests.get("https://pixabay.com/api/videos/", timeout=60,
                      params={"key": os.environ["PIXABAY_API_KEY"], "q": q, "per_page": 12, "safesearch": "true"})
     if r.status_code != 200: return []
@@ -131,8 +134,8 @@ def _pixabay_cands(q):
         v = h.get("videos", {})
         m = v.get("medium") or v.get("small") or {}
         if m.get("url"):
-            out.append({"id": h["id"], "url": m["url"], "thumb": m.get("thumbnail") or (v.get("small") or {}).get("thumbnail")})
-        if len(out) >= 6: break
+            out.append({"id": h["id"], "url": m["url"], "q": q, "thumb": m.get("thumbnail") or (v.get("small") or {}).get("thumbnail")})
+        if len(out) >= limit: break
     return out
 
 
@@ -140,8 +143,10 @@ def pick_best(narration, query, cands):
     """Gemini छोटी तस्वीरें देखकर बताता है कि कौन-सी क्लिप इस वाक्य से सबसे ज़्यादा मेल खाती है। -1 = कोई नहीं।"""
     import base64
     parts = [{"text": f"A short vertical video scene says (Hindi): {narration}\nStock-video search used: {query}\n"
-                      "Below are candidate thumbnails numbered from 0. Choose the ONE that best and most literally shows what the scene talks about "
-                      "(clear, realistic, not abstract). If none really matches, answer -1. Reply ONLY JSON like {\"best\": 2}."}]
+                      f"The whole video is about: {TITLE['t']}\n"
+                      "Below are candidate thumbnails numbered from 0. Choose the ONE that best shows what the scene talks about, "
+                      "or at least the main object or topic of the video, in a clear realistic way. A clip of the right object or setting is acceptable "
+                      "even if the exact action differs. Answer -1 ONLY if every image is unrelated to the video topic. Reply ONLY JSON like {\"best\": 2}."}]
     used = 0
     for i, c in enumerate(cands):
         if not c.get("thumb"): continue
@@ -180,26 +185,23 @@ def _generated(idx, dur):
 
 def scene_clip(scene, idx, dur):
     out = WORK / f"raw{idx}.mp4"
-    queries = [q for q in (scene.get("query"), scene.get("alt")) if q]
-    first_cands = None
+    queries = [q for q in (scene.get("query"), scene.get("alt"), scene.get("alt2")) if q]
     if os.getenv("PIXABAY_API_KEY"):
-        for q in queries:
-            try: cands = _pixabay_cands(q)
+        pool, seen = [], set()
+        for q, lim in zip(queries, (4, 3, 2)):
+            try: cands = _pixabay_cands(q, lim)
             except Exception as e: print(f"pixabay '{q}' failed: {e}"); continue
-            if not cands: continue
-            first_cands = first_cands or cands
-            best = pick_best(scene["narration"], q, cands)
+            for c in cands:
+                if c["id"] not in seen: seen.add(c["id"]); pool.append(c)
+        if pool:
+            best = pick_best(scene["narration"], queries[0] if queries else "", pool)
             time.sleep(4)
-            print(f"scene {idx}: '{q}' -> candidate {best} of {len(cands)}")
-            if best >= 0:
-                c = cands[best]
-                try:
-                    _download(c["url"], out); USED.add(("x", c["id"])); SOURCE["name"] = SOURCE["name"] or "Pixabay"
-                    return out
-                except Exception as e: print("download failed:", e)
-        if first_cands:  # कोई भी पूरी तरह मेल नहीं खाया तो पहली क्लिप ले लो
+            if best < 0:  # कुछ भी मेल नहीं खाया: विषय वाली चीज़ की क्लिप लो, वरना पहली
+                best = next((i for i, c in enumerate(pool) if c["q"] == scene.get("alt")), 0)
+            c = pool[best]
+            print(f"scene {idx}: '{c['q']}' (pool {len(pool)}, pick {best})")
             try:
-                _download(first_cands[0]["url"], out); USED.add(("x", first_cands[0]["id"])); SOURCE["name"] = SOURCE["name"] or "Pixabay"
+                _download(c["url"], out); USED.add(("x", c["id"])); SOURCE["name"] = SOURCE["name"] or "Pixabay"
                 return out
             except Exception as e: print("download failed:", e)
     if os.getenv("PEXELS_API_KEY"):
@@ -308,6 +310,7 @@ def main():
     hist = load_history()
     meta = make_script(hist)
     scenes = meta["scenes"]
+    TITLE["t"] = meta["title"]
     print("Title:", meta["title"])
     voice, durs = make_voice(scenes)
     print(f"Voice: {sum(durs):.1f}s in {len(scenes)} scenes")
