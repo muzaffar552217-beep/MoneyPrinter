@@ -9,6 +9,7 @@ VOICE = os.getenv("VOICE", "hi-IN-MadhurNeural")
 MODEL = os.getenv("GEMINI_MODEL", "gemini-flash-latest")
 PRIVACY = os.getenv("PRIVACY", "public")
 DRY = os.getenv("DRY_RUN", "0") == "1"
+SOURCE = {"name": ""}
 
 
 def sh(cmd):
@@ -120,10 +121,14 @@ def _generated(n):
 def fetch_clips(keywords, n):
     paths = []
     if os.getenv("PEXELS_API_KEY"):
-        try: paths = _pexels(keywords, n)
+        try:
+            paths = _pexels(keywords, n)
+            if len(paths) >= 2: SOURCE["name"] = "Pexels"
         except Exception as e: print("Pexels failed:", e)
     if len(paths) < 2 and os.getenv("PIXABAY_API_KEY"):
-        try: paths = _pixabay(keywords, n)
+        try:
+            paths = _pixabay(keywords, n)
+            if len(paths) >= 2: SOURCE["name"] = "Pixabay"
         except Exception as e: print("Pixabay failed:", e)
     if len(paths) < 2:
         print("फ़ुटेज नहीं मिला, बनी हुई बैकग्राउंड इस्तेमाल हो रही है")
@@ -187,7 +192,7 @@ def upload(video, meta):
                         client_id=os.environ["YT_CLIENT_ID"], client_secret=os.environ["YT_CLIENT_SECRET"],
                         scopes=["https://www.googleapis.com/auth/youtube.upload"])
     yt = build("youtube", "v3", credentials=creds)
-    body = {"snippet": {"title": meta["title"][:95] + " #Shorts", "description": meta["description"],
+    body = {"snippet": {"title": meta["title"][:95] + " #Shorts", "description": meta["description"] + (f"\n\nFootage: {SOURCE['name']}" if SOURCE["name"] else ""),
                         "tags": meta["tags"][:8], "categoryId": "27"},
             "status": {"privacyStatus": PRIVACY, "selfDeclaredMadeForKids": False}}
     req = yt.videos().insert(part="snippet,status", body=body,
