@@ -133,31 +133,43 @@ def _generated(n):
 
 
 def _ai_images(keywords, n):
-    """key के बिना: Pollinations से हर सीन की तस्वीर बनवाकर धीमे ज़ूम वाली क्लिप बनाता है।"""
-    import urllib.parse
+    """फ़ुटेज की key न हो तो Gemini की तस्वीर बनाने वाली सुविधा से सीन की तस्वीरें बनवाकर धीमे ज़ूम वाली क्लिप बनाता है।"""
+    import base64
+    models = [m for m in (os.getenv("GEMINI_IMAGE_MODEL"), "gemini-2.5-flash-image", "gemini-2.0-flash-preview-image-generation") if m]
     paths = []
     for i in range(n):
         kw = keywords[i % len(keywords)]
-        prompt = f"{kw}, realistic photo, cinematic lighting, vertical, high detail, no text"
-        url = "https://image.pollinations.ai/prompt/" + urllib.parse.quote(prompt) + f"?width=1080&height=1920&nologo=true&seed={random.randint(1, 99999)}"
-        img = WORK / f"img{i}.jpg"
+        prompt = f"Vertical 9:16 realistic photo for a short video: {kw}. Cinematic natural lighting, high detail, no text, no watermark, no logos."
+        img = WORK / f"img{i}.png"
         ok = False
-        for attempt in range(3):
+        for model in models:
             try:
-                r = requests.get(url, timeout=120, headers={"User-Agent": "Mozilla/5.0"})
-                if r.status_code == 200 and len(r.content) > 20000 and r.headers.get("content-type", "").startswith("image"):
-                    img.write_bytes(r.content); ok = True; break
-                print(f"Pollinations {kw}: HTTP {r.status_code} {len(r.content)}B (try {attempt + 1})")
+                r = requests.post(
+                    f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+                    headers={"x-goog-api-key": os.environ["GEMINI_API_KEY"]},
+                    json={"contents": [{"parts": [{"text": prompt}]}],
+                          "generationConfig": {"responseModalities": ["IMAGE", "TEXT"]}}, timeout=120)
             except requests.RequestException as e:
-                print("Pollinations error:", e)
-            time.sleep(8)
-        if not ok: continue
+                print("Gemini image error:", e); continue
+            if r.status_code != 200:
+                print(f"Gemini image {model}: HTTP {r.status_code} {r.text[:160]!r}")
+                if r.status_code == 429: time.sleep(20)
+                continue
+            for part in r.json().get("candidates", [{}])[0].get("content", {}).get("parts", []):
+                data = (part.get("inlineData") or part.get("inline_data") or {}).get("data")
+                if data:
+                    img.write_bytes(base64.b64decode(data)); ok = True; break
+            if ok: break
+        if not ok:
+            if i == 0: return []  # पहली ही नहीं बनी तो समय बर्बाद मत करो
+            continue
         out = WORK / f"raw{len(paths)}.mp4"
         zoom = random.choice(["min(zoom+0.0009,1.3)", "if(eq(on,1),1.3,max(zoom-0.0009,1.0))"])
         sh(["ffmpeg", "-y", "-loop", "1", "-i", str(img), "-t", "8", "-vf",
             f"scale=2160:3840:force_original_aspect_ratio=increase,crop=2160:3840,zoompan=z='{zoom}':d=240:s=1080x1920:fps=30,format=yuv420p",
             "-c:v", "libx264", "-preset", "veryfast", str(out)])
         paths.append(out)
+        time.sleep(4)
     return paths
 
 
@@ -176,7 +188,7 @@ def fetch_clips(keywords, n):
     if len(paths) < 2:
         try:
             paths = _ai_images(keywords, n)
-            if len(paths) >= 2: SOURCE["name"] = "AI images (Pollinations)"
+            if len(paths) >= 2: SOURCE["name"] = "AI images (Gemini)"
         except Exception as e: print("AI images failed:", e)
     if len(paths) < 2:
         print("फ़ुटेज नहीं मिला, बनी हुई बैकग्राउंड इस्तेमाल हो रही है")
