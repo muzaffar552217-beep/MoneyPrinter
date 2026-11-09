@@ -289,8 +289,44 @@ Return ONLY JSON: {{"scenes": [{{"narration": "...", "caption_en": "same meaning
     return data
 
 
+def _cf_image(prompt, dst):
+    url = f"https://api.cloudflare.com/client/v4/accounts/{os.environ['CF_ACCOUNT_ID']}/ai/run/@cf/black-forest-labs/flux-1-schnell"
+    for attempt in range(3):
+        try:
+            r = requests.post(url, headers={"Authorization": f"Bearer {os.environ['CF_API_TOKEN']}"},
+                              json={"prompt": prompt, "steps": 6}, timeout=120)
+            if r.status_code == 200:
+                import base64
+                dst.write_bytes(base64.b64decode(r.json()["result"]["image"])); return True
+            print("cf image HTTP", r.status_code, r.text[:150])
+        except Exception as e: print("cf image error:", e)
+        time.sleep(6 * (attempt + 1))
+    return False
+
+
+def ai_images(history):
+    """AI हर सीन के लिए असली जैसी फोटो बनाता है -> दृश्य हमेशा बोले हुए से मेल खाता है।"""
+    data = _gemini([{"text": f"""You write a viral Hindi YouTube Short for channel MindFacto. Pick ONE safe, useful, easy everyday life hack (topic area: {TOPIC}). Do NOT repeat: {history[-40:]}.
+Return ONLY JSON: {{"scenes": [7 objects in story order, each: "narration": one or two SHORT lively Hindi sentences in Devanagari like an excited friend (all together 70-90 words; first = hook, last = question/follow request), "caption_en": same meaning in simple English max 14 words, "image_prompt": English prompt for ONE realistic vertical photo of EXACTLY what is happening in this narration: name the objects, hands, place, lighting. Style: realistic smartphone photo, natural light, sharp focus, wide shot, no text, no logos, no cartoon],
+ "title": Hindi title under 70 chars describing exactly this hack, "description": 2 Hindi lines + #Shorts #MindFacto #lifehacks, "tags": [up to 8]}}"""}])
+    sc = [x for x in data["scenes"] if x.get("narration") and x.get("image_prompt")]
+    assert len(sc) >= 5
+    for i, x in enumerate(sc):
+        img = WORK / f"img{i}.jpg"
+        if not _cf_image(x["image_prompt"] + ", photorealistic, ultra detailed, sharp focus", img): raise RuntimeError("image failed")
+        x["_img"] = img; x["query"] = x["image_prompt"][:60]
+    data["scenes"] = sc
+    for k in ("title", "description", "tags"): assert k in data
+    SOURCE["name"] = "AI-generated images (Cloudflare FLUX)"
+    return data
+
+
 def scene_clip(scene, idx, dur):
     out = WORK / f"raw{idx}.mp4"
+    if scene.get("_img"):
+        sh(["ffmpeg", "-y", "-loop", "1", "-framerate", "30", "-i", str(scene["_img"]), "-t", f"{dur + 1:.2f}",
+            "-vf", "scale=1080:-2,format=yuv420p", "-c:v", "libx264", "-preset", "veryfast", "-r", "30", str(out)])
+        return out
     if scene.get("_cand"):
         try:
             _download(scene["_cand"]["url"], out); USED.add(("x", scene["_cand"]["id"])); SOURCE["name"] = SOURCE["name"] or "Pixabay"
@@ -447,8 +483,14 @@ def upload(video, meta):
 def main():
     hist = load_history()
     try:
-        if not os.getenv("PIXABAY_API_KEY"): raise RuntimeError("no pixabay")
-        meta = footage_first(hist)
+        if not (os.getenv("CF_ACCOUNT_ID") and os.getenv("CF_API_TOKEN")): raise RuntimeError("no cloudflare keys")
+        meta = ai_images(hist)
+    except Exception as e0:
+        print("ai-images skipped:", e0); meta = None
+    try:
+        if meta: pass
+        elif not os.getenv("PIXABAY_API_KEY"): raise RuntimeError("no pixabay")
+        else: meta = footage_first(hist)
     except Exception as e:
         print("footage-first failed, old method:", e)
         meta = make_script(hist)
