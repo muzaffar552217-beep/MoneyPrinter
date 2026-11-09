@@ -6,7 +6,7 @@ WORK = pathlib.Path("work"); WORK.mkdir(exist_ok=True)
 HIST = pathlib.Path("history.json")
 TOPIC = os.getenv("TOPIC", "everyday life hacks")
 VOICE = os.getenv("VOICE", "hi-IN-MadhurNeural")
-RATE = os.getenv("VOICE_RATE", "+25%")
+RATE = os.getenv("VOICE_RATE", "+20%")
 PITCH = os.getenv("VOICE_PITCH", "+3Hz")
 MODEL = os.getenv("GEMINI_MODEL", "gemini-flash-lite-latest")
 PRIVACY = os.getenv("PRIVACY", "public")
@@ -38,16 +38,17 @@ def make_script(history):
     prompt = f"""You write viral YouTube Shorts for a Hindi channel called MindFacto. Topic area: {TOPIC}.
 Pick ONE practical, safe, genuinely useful life hack (quick, cheap, easy to try today, no medical or dangerous advice).
 Do NOT repeat these earlier titles: {history[-40:]}.
-Return ONLY JSON with these keys:
-  "title": catchy Hindi title under 70 characters (no hashtags),
-  "description": 2 Hindi lines + hashtags #Shorts #MindFacto #lifehacks,
-  "tags": list of up to 8 short tags,
+Return ONLY JSON with these keys, in this exact order:
   "scenes": list of 7 objects in story order. Each object has:
      "narration": one or two SHORT, punchy Hindi sentences in Devanagari, spoken like an excited friend sharing a secret (lively, conversational, use ! and ? naturally, no formal or bookish words). All narrations together are 75-90 words in total (short and fast). Scene 1 is a strong hook, the last scene ends with a question or asks to follow.
      "caption_en": natural English subtitle for this narration, same meaning, simple words, max 14 words, no emojis,
-     "query": 1-3 simple English words, the most common stock-footage term for what is shown in this scene, e.g. "pouring tea", "washing dishes", "cutting lemon", "garlic cloves". Concrete and visible, never abstract words like "smart ideas".
-     "alt": one simple English noun for the main object of the whole life hack, e.g. "garlic" (same noun is fine in many scenes),
-     "alt2": a very common general setting or action word, e.g. "kitchen", "hands", "cooking", "home"."""
+     "query": 1-3 simple English words for a stock-video search that shows EXACTLY what this scene shows: a visible object or action, e.g. "pouring tea", "washing dishes", "banana peel", "polishing shoes". For hook and call-to-action scenes use the main object of the hack (e.g. "banana peel", "leather shoes"). NEVER use emotions, people-only words, "subscribe", "button", "text" or abstract words,
+     "alt": one simple English noun for the main object of the whole life hack, e.g. "banana peel",
+     "alt2": a very common related setting or action word, e.g. "kitchen", "hands", "cleaning", "home".
+  "title": catchy Hindi title under 70 characters (no hashtags) that describes EXACTLY the life hack told in the scenes above,
+  "description": 2 Hindi lines about that same hack + hashtags #Shorts #MindFacto #lifehacks,
+  "tags": list of up to 8 short tags.
+"""
     models = [MODEL] + [m for m in ("gemini-flash-lite-latest", "gemini-flash-latest", "gemini-2.5-flash", "gemini-2.5-flash-lite") if m != MODEL]
     r = None
     for model in models:
@@ -125,7 +126,7 @@ async def _tts_edge(texts, paths):
 def make_voice(scenes):
     wavs = [WORK / f"scene{i}.wav" for i in range(len(scenes))]
     ok = False
-    if os.getenv("USE_GEMINI_TTS", "1") == "1":
+    if os.getenv("USE_GEMINI_TTS", "0") == "1":
         try:
             for i, s in enumerate(scenes):
                 _tts_gemini(s["narration"], wavs[i]); time.sleep(5)
@@ -187,9 +188,10 @@ def pick_best(narration, query, cands):
     import base64
     parts = [{"text": f"A short vertical video scene says (Hindi): {narration}\nStock-video search used: {query}\n"
                       f"The whole video is about: {TITLE['t']}\n"
-                      "Below are candidate thumbnails numbered from 0. Choose the ONE that best shows what the scene talks about, "
-                      "or at least the main object or topic of the video, in a clear realistic way. A clip of the right object or setting is acceptable "
-                      "even if the exact action differs. Answer -1 ONLY if every image is unrelated to the video topic. Reply ONLY JSON like {\"best\": 2}."}]
+                      "Below are candidate thumbnails numbered from 0. Choose the ONE that best shows the object or action of this scene in a clear, sharp, realistic, well-lit shot "
+                      "(prefer close-ups of the actual object or action). REJECT a candidate if it is blurry or out of focus, a green screen or solid-color background, "
+                      "a cartoon or animation, has text, buttons or logos, or only shows unrelated scenery. A clip of the main object of the video is acceptable only if no better scene match exists. "
+                      "Answer -1 if no candidate passes. Reply ONLY JSON like {\"best\": 2}."}]
     used = 0
     for i, c in enumerate(cands):
         if not c.get("thumb"): continue
@@ -231,7 +233,7 @@ def scene_clip(scene, idx, dur):
     queries = [q for q in (scene.get("query"), scene.get("alt"), scene.get("alt2")) if q]
     if os.getenv("PIXABAY_API_KEY"):
         pool, seen = [], set()
-        for q, lim in zip(queries, (4, 3, 2)):
+        for q, lim in zip(queries, (6, 3, 2)):
             try: cands = _pixabay_cands(q, lim)
             except Exception as e: print(f"pixabay '{q}' failed: {e}"); continue
             for c in cands:
