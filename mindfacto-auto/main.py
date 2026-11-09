@@ -228,8 +228,74 @@ def _generated(idx, dur):
     return out
 
 
+def _gemini(parts, temp=1.0):
+    import base64  # noqa
+    models = [MODEL] + [m for m in ("gemini-flash-lite-latest", "gemini-flash-latest", "gemini-2.5-flash", "gemini-2.5-flash-lite") if m != MODEL]
+    for model in models:
+        for attempt in range(3):
+            try:
+                r = requests.post(f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+                                  headers={"x-goog-api-key": os.environ["GEMINI_API_KEY"]},
+                                  json={"contents": [{"parts": parts}],
+                                        "generationConfig": {"responseMimeType": "application/json", "temperature": temp}}, timeout=120)
+            except requests.RequestException as e:
+                print(model, "network", e); time.sleep(8); continue
+            if r.status_code == 200:
+                d = json.loads(r.json()["candidates"][0]["content"]["parts"][0]["text"])
+                return d[0] if isinstance(d, list) else d
+            print(f"{model}: HTTP {r.status_code}")
+            if r.status_code in (429, 500, 503): time.sleep(12 * (attempt + 1)); continue
+            break
+    raise RuntimeError("Gemini failed")
+
+
+def footage_first(history):
+    """पहले फुटेज चुनो, फिर Gemini उसी फुटेज को देखकर स्क्रिप्ट लिखे -> आवाज़ और विज़ुअल हमेशा मेल खाते हैं।"""
+    import base64
+    plan = _gemini([{"text": f"""Plan a YouTube Short about ONE safe, useful everyday life hack (topic area: {TOPIC}). Do NOT repeat: {history[-40:]}.
+Stock-video libraries only have COMMON footage, so the hack must be explainable with common visuals: kitchen, cleaning, water, fruits, vegetables, clothes, plants, phone, hands, tools, home.
+Return ONLY JSON: {{"hack": "one English sentence describing the hack", "queries": [7 different stock-video search phrases, 1-3 plain English words each, each a common visible object or action that fits the hack in story order]}}"""}])
+    hack, queries = plan["hack"], [str(q) for q in plan["queries"]][:7]
+    print("Hack:", hack, queries)
+    TITLE["t"] = hack
+    chosen = []
+    for i, q in enumerate(queries):
+        cands = []
+        try: cands = [c for c in _pixabay_cands(q, 8) if c["id"] not in {x["id"] for x in chosen if x}]
+        except Exception as e: print("pixabay failed:", e)
+        if not cands: chosen.append(None); continue
+        b = pick_best(f"Shot {i + 1} of a video about: {hack}", q, cands)
+        time.sleep(4)
+        chosen.append(cands[b] if b >= 0 else None)
+        print(f"shot {i}: '{q}' ->", None if b < 0 else cands[b]["id"])
+    keep = [(q, c) for q, c in zip(queries, chosen) if c]
+    if len(keep) < 5: raise RuntimeError("not enough footage")
+    parts = [{"text": f"""You write a viral Hindi YouTube Short (channel MindFacto) about this life hack: {hack}.
+Below are {len(keep)} stock-video thumbnails in story order. For EACH image write the narration that is spoken while that exact shot is on screen. The narration must describe or fit what is truly visible in that image, no contradictions.
+Hindi in Devanagari, one or two SHORT lively sentences, like an excited friend, all together 70-90 words. First = hook, last = ends with a question or follow request.
+Return ONLY JSON: {{"scenes": [{{"narration": "...", "caption_en": "same meaning in simple English, max 14 words"}} one per image in order], "title": "Hindi title under 70 chars describing exactly this hack", "description": "2 Hindi lines + #Shorts #MindFacto #lifehacks", "tags": [up to 8]}}"""}]
+    for i, (q, c) in enumerate(keep):
+        try:
+            img = requests.get(c["thumb"], timeout=30).content
+            parts += [{"text": f"Image {i}:"}, {"inlineData": {"mimeType": "image/jpeg", "data": base64.b64encode(img).decode()}}]
+        except Exception as e:
+            print("thumb failed:", e); parts.append({"text": f"Image {i}: (search: {q})"})
+    data = _gemini(parts, 0.9)
+    sc = data["scenes"][:len(keep)]
+    assert len(sc) == len(keep), "scene count mismatch"
+    for s, (q, c) in zip(sc, keep): s["_cand"] = c; s["query"] = q
+    data["scenes"] = sc
+    for k in ("title", "description", "tags"): assert k in data
+    return data
+
+
 def scene_clip(scene, idx, dur):
     out = WORK / f"raw{idx}.mp4"
+    if scene.get("_cand"):
+        try:
+            _download(scene["_cand"]["url"], out); USED.add(("x", scene["_cand"]["id"])); SOURCE["name"] = SOURCE["name"] or "Pixabay"
+            return out
+        except Exception as e: print("download failed:", e)
     queries = [q for q in (scene.get("query"), scene.get("alt"), scene.get("alt2")) if q]
     if os.getenv("PIXABAY_API_KEY"):
         pool, seen = [], set()
@@ -380,7 +446,12 @@ def upload(video, meta):
 
 def main():
     hist = load_history()
-    meta = make_script(hist)
+    try:
+        if not os.getenv("PIXABAY_API_KEY"): raise RuntimeError("no pixabay")
+        meta = footage_first(hist)
+    except Exception as e:
+        print("footage-first failed, old method:", e)
+        meta = make_script(hist)
     scenes = meta["scenes"]
     TITLE["t"] = meta["title"]
     print("Title:", meta["title"])
