@@ -1,70 +1,70 @@
 {
- "title": "बिना माचिस गैस जलाएं! गजब का किचन जुगाड़",
+ "title": "पोछे का ढीला डंडा ठीक करने का गजब का जुगाड़",
  "voice_engine": "edge-tts (hi-IN-MadhurNeural)",
  "footage": "Pixabay",
  "scenes": [
   {
    "i": 0,
-   "dur": 4.42,
-   "narration": "अरे! क्या आपके घर में भी केले के छिलके बेकार समझकर फेंके जाते हैं?",
-   "caption_en": "Do you also throw away banana peels thinking they are useless?",
-   "query": "banana peels",
-   "alt": "banana",
-   "alt2": "kitchen"
+   "dur": 4.92,
+   "narration": "अरे! क्या आपकी बाल्टी से भी पोछा लगाते वक्त बार-बार डंडा निकल जाता है?",
+   "caption_en": "Does your mop handle keep slipping out while cleaning the floor?",
+   "query": "mop handle",
+   "alt": "mop",
+   "alt2": "cleaning"
   },
   {
    "i": 1,
-   "dur": 4.5,
-   "narration": "रुको यार! आज ऐसा गजब का जुगाड़ बताऊंगा कि आप चौंक जाओगे!",
-   "caption_en": "Wait! Today I will show you an amazing trick that will shock you!",
-   "query": "excited person",
-   "alt": "banana",
+   "dur": 3.63,
+   "narration": "इसे ठीक करने का एक बहुत ही शानदार और आसान जुगाड़ है!",
+   "caption_en": "Here is a very brilliant and easy trick to fix this!",
+   "query": "cleaning floor",
+   "alt": "mop",
    "alt2": "home"
   },
   {
    "i": 2,
-   "dur": 3.94,
-   "narration": "बस एक केले का छिलका लो और अपने पुराने चमड़े के जूतों पर रगड़ दो!",
-   "caption_en": "Just take a banana peel and rub it on your old leather shoes!",
-   "query": "rubbing shoe",
-   "alt": "banana",
-   "alt2": "shoes"
+   "dur": 3.07,
+   "narration": "बस एक पुरानी रबर बैंड ले लो, बहुत काम आएगी!",
+   "caption_en": "Just take an old rubber band, it will be very useful!",
+   "query": "rubber band",
+   "alt": "mop",
+   "alt2": "hands"
   },
   {
    "i": 3,
-   "dur": 3.22,
-   "narration": "अब एक सूती कपड़े से इसे हल्के हाथ से पोंछ लो भाई!",
-   "caption_en": "Now wipe it gently with a cotton cloth, brother!",
-   "query": "cleaning shoe",
-   "alt": "banana",
-   "alt2": "cloth"
+   "dur": 3.15,
+   "narration": "अब उस रबर बैंड को पोछे के पेंच पर कसकर लपेट दो!",
+   "caption_en": "Now wrap that rubber band tightly around the screw of the mop!",
+   "query": "wrapping band",
+   "alt": "mop",
+   "alt2": "hands"
   },
   {
    "i": 4,
-   "dur": 4.05,
-   "narration": "देखते ही देखते जूते ऐसे चमक उठेंगे जैसे अभी डिब्बे से निकले हों!",
-   "caption_en": "Instantly the shoes will shine as if they just came out of the box!",
-   "query": "shiny leather shoes",
-   "alt": "banana",
-   "alt2": "shoes"
+   "dur": 2.88,
+   "narration": "अब डंडे को वापस घुमाकर अच्छी तरह टाइट कर लो!",
+   "caption_en": "Now twist the handle back and tighten it really well!",
+   "query": "tightening screw",
+   "alt": "mop",
+   "alt2": "tools"
   },
   {
    "i": 5,
-   "dur": 3.83,
-   "narration": "बिना किसी महंगे पॉलिश के पैसे बचाए और जूते नए जैसे चमकाए!",
-   "caption_en": "Save money without any expensive polish and make shoes shine like new!",
-   "query": "smiling person",
-   "alt": "banana",
-   "alt2": "home"
+   "dur": 4.23,
+   "narration": "लो जी! डंडा बिल्कुल पक्का हो गया, अब कभी नहीं निकलेगा!",
+   "caption_en": "Look! The handle is completely secure and will never slip out now!",
+   "query": "clean floor",
+   "alt": "mop",
+   "alt2": "cleaning"
   },
   {
    "i": 6,
-   "dur": 4.99,
-   "narration": "है ना कमाल की ट्रिक? जल्दी से फॉलो बटन दबाओ ऐसे और मज़ेदार हैक्स के लिए!",
-   "caption_en": "Isn't it an amazing trick? Quickly hit the follow button for more such fun hacks!",
-   "query": "subscribe button",
-   "alt": "banana",
-   "alt2": "phone"
+   "dur": 3.91,
+   "narration": "है ना कमाल की ट्रिक? जल्दी से फॉलो कर लो MindFacto को!",
+   "caption_en": "Isn't this an amazing trick? Quickly follow MindFacto for more!",
+   "query": "cleaning mop",
+   "alt": "mop",
+   "alt2": "home"
   }
  ]
 }
