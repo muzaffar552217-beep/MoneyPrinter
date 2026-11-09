@@ -1,70 +1,61 @@
 {
- "title": "दरवाजे की आवाज से हैं परेशान? अपनाएं यह आसान तेल वाला जुगाड़",
+ "title": "बासी ब्रेड को 5 मिनट में एकदम ताजा और सॉफ्ट बनाएं!",
  "voice_engine": "edge-tts (hi-IN-MadhurNeural)",
  "footage": "Pixabay",
  "scenes": [
   {
    "i": 0,
-   "dur": 3.32,
-   "narration": "क्या आपके घर का दरवाजा भी बंद करते वक्त आवाज करता है?",
-   "caption_en": "Does your home door also make a squeaky sound when closing?",
-   "query": "wooden door",
-   "alt": "door",
-   "alt2": "home"
+   "dur": 3.73,
+   "narration": "अरे यार, क्या आपकी ब्रेड भी सूखकर पत्थर जैसी सख्त हो गई है?",
+   "caption_en": "Oh man, did your bread also become hard like stone?",
+   "query": "dry bread",
+   "alt": null,
+   "alt2": null
   },
   {
    "i": 1,
-   "dur": 3.36,
-   "narration": "इसे ठीक करने के लिए महंगे ऑयल की कोई जरूरत नहीं है!",
-   "caption_en": "You do not need expensive oil to fix this!",
-   "query": "cooking oil",
-   "alt": "door",
-   "alt2": "kitchen"
+   "dur": 3.76,
+   "narration": "फिक्र मत करो! बस इस पर थोड़ा सा पानी छिड़क दो।",
+   "caption_en": "Don't worry! Just sprinkle a little water on it.",
+   "query": "water drops",
+   "alt": null,
+   "alt2": null
   },
   {
    "i": 2,
-   "dur": 3.31,
-   "narration": "बस किचन से थोड़ा सा सरसों का तेल या नारियल तेल ले लो!",
-   "caption_en": "Just take a little mustard oil or coconut oil from the kitchen!",
-   "query": "pouring oil",
-   "alt": "door",
-   "alt2": "kitchen"
+   "dur": 2.98,
+   "narration": "पानी की एक हल्की फुहार इसे नया जीवन दे देगी!",
+   "caption_en": "A light spray of water will give it a new life!",
+   "query": "sprinkling water",
+   "alt": null,
+   "alt2": null
   },
   {
    "i": 3,
-   "dur": 3.5,
-   "narration": "अब एक रुई की मदद से तेल को दरवाजे के कब्जे पर लगा दो।",
-   "caption_en": "Now apply the oil on the door hinge using a cotton ball.",
-   "query": "door hinge",
-   "alt": "door",
-   "alt2": "cleaning"
+   "dur": 3.04,
+   "narration": "अब इसे ओवन में सिर्फ पांच मिनट के लिए बेक कर लो।",
+   "caption_en": "Now bake it in the oven for just five minutes.",
+   "query": "kitchen oven",
+   "alt": null,
+   "alt2": null
   },
   {
    "i": 4,
-   "dur": 3.24,
-   "narration": "दरवाजे को दो-तीन बार आगे-पीछे घुमाकर सेट कर लो।",
-   "caption_en": "Move the door back and forth two or three times to set it.",
-   "query": "opening door",
-   "alt": "door",
-   "alt2": "home"
+   "dur": 4.09,
+   "narration": "वाह! ब्रेड एकदम ताजी, सॉफ्ट और क्रिस्पी हो गई है!",
+   "caption_en": "Wow! The bread has become totally fresh, soft and crispy!",
+   "query": "baking bread",
+   "alt": null,
+   "alt2": null
   },
   {
    "i": 5,
-   "dur": 3.65,
-   "narration": "लो जी! चुच-चुच की आवाज बिल्कुल गायब हो गई है!",
-   "caption_en": "Look! The squeaking sound has completely disappeared!",
-   "query": "closing door",
-   "alt": "door",
-   "alt2": "home"
-  },
-  {
-   "i": 6,
-   "dur": 4.12,
-   "narration": "है ना मजेदार ट्रिक? ऐसे ही कमाल के जुगाड़ के लिए फॉलो करें!",
-   "caption_en": "Isn't it an amazing trick? Follow for more amazing hacks!",
-   "query": "wooden door",
-   "alt": "door",
-   "alt2": "home"
+   "dur": 4.25,
+   "narration": "है ना कमाल का हैक? जल्दी से ट्राई करके बताओ कैसी लगी!",
+   "caption_en": "Isn't it an amazing hack? Try it quickly and tell me how it was!",
+   "query": "cutting bread",
+   "alt": null,
+   "alt2": null
   }
  ]
 }
