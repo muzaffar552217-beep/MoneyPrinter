@@ -1,61 +1,70 @@
 {
- "title": "बासी ब्रेड को 5 मिनट में एकदम ताजा और सॉफ्ट बनाएं!",
+ "title": "पेन की स्प्रिंग से बचाएं अपना महंगा चार्जर",
  "voice_engine": "edge-tts (hi-IN-MadhurNeural)",
  "footage": "Pixabay",
  "scenes": [
   {
    "i": 0,
-   "dur": 3.73,
-   "narration": "अरे यार, क्या आपकी ब्रेड भी सूखकर पत्थर जैसी सख्त हो गई है?",
-   "caption_en": "Oh man, did your bread also become hard like stone?",
-   "query": "dry bread",
-   "alt": null,
-   "alt2": null
+   "dur": 4.72,
+   "narration": "अरे रुको! क्या आपके फोन का चार्जर बार-बार मुड़कर बीच से टूट जाता है?",
+   "caption_en": "Does your phone charger cable always bend and break near the end?",
+   "query": "phone charger",
+   "alt": "charger",
+   "alt2": "cable"
   },
   {
    "i": 1,
-   "dur": 3.76,
-   "narration": "फिक्र मत करो! बस इस पर थोड़ा सा पानी छिड़क दो।",
-   "caption_en": "Don't worry! Just sprinkle a little water on it.",
-   "query": "water drops",
-   "alt": null,
-   "alt2": null
+   "dur": 4.66,
+   "narration": "इसे बचाने का एक गजब का जुगाड़ बताता हूँ जो आज ही आपके बहुत काम आएगा!",
+   "caption_en": "Here is an amazing trick to protect it that you need today!",
+   "query": "mobile cable",
+   "alt": "charger",
+   "alt2": "repair"
   },
   {
    "i": 2,
-   "dur": 2.98,
-   "narration": "पानी की एक हल्की फुहार इसे नया जीवन दे देगी!",
-   "caption_en": "A light spray of water will give it a new life!",
-   "query": "sprinkling water",
-   "alt": null,
-   "alt2": null
+   "dur": 4.01,
+   "narration": "बस एक खाली पेन की स्प्रिंग लो और उसे आराम से बाहर निकाल लो!",
+   "caption_en": "Just take an empty pen spring and pull it out carefully!",
+   "query": "pen spring",
+   "alt": "spring",
+   "alt2": "pen"
   },
   {
    "i": 3,
-   "dur": 3.04,
-   "narration": "अब इसे ओवन में सिर्फ पांच मिनट के लिए बेक कर लो।",
-   "caption_en": "Now bake it in the oven for just five minutes.",
-   "query": "kitchen oven",
-   "alt": null,
-   "alt2": null
+   "dur": 4.33,
+   "narration": "अब इस स्प्रिंग को धीरे-धीरे अपने चार्जर केबल के दोनों सिरों पर लपेट दो।",
+   "caption_en": "Now slowly wrap this spring around both ends of your charger cable.",
+   "query": "wrapping spring",
+   "alt": "charger",
+   "alt2": "hands"
   },
   {
    "i": 4,
-   "dur": 4.09,
-   "narration": "वाह! ब्रेड एकदम ताजी, सॉफ्ट और क्रिस्पी हो गई है!",
-   "caption_en": "Wow! The bread has become totally fresh, soft and crispy!",
-   "query": "baking bread",
-   "alt": null,
-   "alt2": null
+   "dur": 5.08,
+   "narration": "लीजिए, आपकी केबल अब कभी नहीं मुड़ेगी और सालो-साल बिल्कुल नई जैसी चलेगी!",
+   "caption_en": "Look, your cable will never bend and will last for years!",
+   "query": "charging phone",
+   "alt": "charger",
+   "alt2": "phone"
   },
   {
    "i": 5,
-   "dur": 4.25,
-   "narration": "है ना कमाल का हैक? जल्दी से ट्राई करके बताओ कैसी लगी!",
-   "caption_en": "Isn't it an amazing hack? Try it quickly and tell me how it was!",
-   "query": "cutting bread",
-   "alt": null,
-   "alt2": null
+   "dur": 2.62,
+   "narration": "है ना एकदम कमाल का और बिलकुल फ्री का जुगाड़?",
+   "caption_en": "Isn't this an amazing and completely free life hack?",
+   "query": "usb cable",
+   "alt": "cable",
+   "alt2": "gadget"
+  },
+  {
+   "i": 6,
+   "dur": 3.61,
+   "narration": "ऐसी ही काम की टिप्स के लिए जल्दी से MindFacto को फॉलो कर लो!",
+   "caption_en": "Quickly follow MindFacto for more useful tips like this!",
+   "query": "smartphone",
+   "alt": "phone",
+   "alt2": "tech"
   }
  ]
 }
