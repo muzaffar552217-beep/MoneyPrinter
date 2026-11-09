@@ -44,6 +44,7 @@ Return ONLY JSON with these keys:
   "tags": list of up to 8 short tags,
   "scenes": list of 7 objects in story order. Each object has:
      "narration": one or two SHORT, punchy Hindi sentences in Devanagari, spoken like an excited friend sharing a secret (lively, conversational, use ! and ? naturally, no formal or bookish words). All narrations together are 75-90 words in total (short and fast). Scene 1 is a strong hook, the last scene ends with a question or asks to follow.
+     "caption_en": natural English subtitle for this narration, same meaning, simple words, max 14 words, no emojis,
      "query": 1-3 simple English words, the most common stock-footage term for what is shown in this scene, e.g. "pouring tea", "washing dishes", "cutting lemon", "garlic cloves". Concrete and visible, never abstract words like "smart ideas".
      "alt": one simple English noun for the main object of the whole life hack, e.g. "garlic" (same noun is fine in many scenes),
      "alt2": a very common general setting or action word, e.g. "kitchen", "hands", "cooking", "home"."""
@@ -78,8 +79,38 @@ Return ONLY JSON with these keys:
     return data
 
 
-# 2) आवाज़ (हर सीन की अलग) --------------------------------------------------------
-async def _tts_all(texts, paths):
+# 2) आवाज़ (हर सीन की अलग; पहले Gemini की जानदार आवाज़, न चले तो edge-tts) -------------
+GEMINI_VOICE = os.getenv("GEMINI_VOICE", "Puck")
+TTS_MODEL = os.getenv("GEMINI_TTS_MODEL", "gemini-2.5-flash-preview-tts")
+ENGINE = {"name": ""}
+
+
+def _polish(src, dst, tempo):
+    """शुरू और आख़िर की चुप्पी हटाओ, थोड़ा तेज़ करो, WAV बनाओ (सटीक समय के लिए)।"""
+    trim = "silenceremove=start_periods=1:start_threshold=-48dB:start_silence=0.05"
+    sh(["ffmpeg", "-y", "-i", str(src), "-af", f"{trim},areverse,{trim},areverse,atempo={tempo},apad=pad_dur=0.06",
+        "-ar", "24000", "-ac", "1", str(dst)])
+
+
+def _tts_gemini(text, dst):
+    import base64
+    prompt = f"Say this in Hindi in an energetic, friendly, upbeat, fast-paced tone like a popular YouTube Shorts storyteller: {text}"
+    r = requests.post(f"https://generativelanguage.googleapis.com/v1beta/models/{TTS_MODEL}:generateContent",
+                      headers={"x-goog-api-key": os.environ["GEMINI_API_KEY"]},
+                      json={"contents": [{"parts": [{"text": prompt}]}],
+                            "generationConfig": {"responseModalities": ["AUDIO"],
+                                                 "speechConfig": {"voiceConfig": {"prebuiltVoiceConfig": {"voiceName": GEMINI_VOICE}}}}},
+                      timeout=180)
+    if r.status_code != 200:
+        raise RuntimeError(f"HTTP {r.status_code} {r.text[:150]!r}")
+    data = base64.b64decode(r.json()["candidates"][0]["content"]["parts"][0]["inlineData"]["data"])
+    raw = dst.with_suffix(".pcm"); raw.write_bytes(data)
+    tmp = dst.with_suffix(".raw.wav")
+    sh(["ffmpeg", "-y", "-f", "s16le", "-ar", "24000", "-ac", "1", "-i", str(raw), str(tmp)])
+    _polish(tmp, dst, 1.10)
+
+
+async def _tts_edge(texts, paths):
     import edge_tts
     for t, p in zip(texts, paths):
         for attempt in range(3):
@@ -92,13 +123,26 @@ async def _tts_all(texts, paths):
 
 
 def make_voice(scenes):
-    paths = [WORK / f"scene{i}.mp3" for i in range(len(scenes))]
-    asyncio.run(_tts_all([s["narration"] for s in scenes], paths))
-    durs = [duration(p) for p in paths]
+    wavs = [WORK / f"scene{i}.wav" for i in range(len(scenes))]
+    ok = False
+    if os.getenv("USE_GEMINI_TTS", "1") == "1":
+        try:
+            for i, s in enumerate(scenes):
+                _tts_gemini(s["narration"], wavs[i]); time.sleep(5)
+            ok = True; ENGINE["name"] = f"Gemini TTS ({GEMINI_VOICE})"
+        except Exception as e:
+            print("Gemini TTS नहीं चला, edge-tts पर जा रहे हैं:", e)
+    if not ok:
+        mp3s = [WORK / f"scene{i}.mp3" for i in range(len(scenes))]
+        asyncio.run(_tts_edge([s["narration"] for s in scenes], mp3s))
+        for m, w in zip(mp3s, wavs): _polish(m, w, 1.0)
+        ENGINE["name"] = f"edge-tts ({VOICE})"
+    print("Voice engine:", ENGINE["name"])
+    durs = [duration(w) for w in wavs]
     lst = WORK / "voice_list.txt"
-    lst.write_text("".join(f"file '{p.name}'\n" for p in paths))
-    out = WORK / "voice.mp3"
-    sh(["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", str(lst), "-c:a", "libmp3lame", "-q:a", "4", str(out)])
+    lst.write_text("".join(f"file '{w.name}'\n" for w in wavs))
+    out = WORK / "voice.wav"
+    sh(["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", str(lst), "-c", "copy", str(out)])
     return out, durs
 
 
@@ -125,7 +169,7 @@ def _find_pexels(q):
 
 def _pixabay_cands(q, limit=4):
     r = requests.get("https://pixabay.com/api/videos/", timeout=60,
-                     params={"key": os.environ["PIXABAY_API_KEY"], "q": q, "per_page": 12, "safesearch": "true"})
+                     params={"key": os.environ["PIXABAY_API_KEY"], "q": q, "per_page": 14, "safesearch": "true", "video_type": "film"})
     if r.status_code != 200: return []
     out = []
     for h in r.json().get("hits", []):
@@ -214,7 +258,7 @@ def scene_clip(scene, idx, dur):
     return _generated(idx, dur)
 
 
-# 4) कैप्शन ------------------------------------------------------------------------
+# 4) कैप्शन (अंग्रेज़ी) -----------------------------------------------------------
 def ts(t):
     h, m, s = int(t // 3600), int(t % 3600 // 60), t % 60
     return f"{h}:{m:02d}:{s:05.2f}"
@@ -225,11 +269,12 @@ def make_ass(scenes, durs):
             "[V4+ Styles]\nFormat: Name,Fontname,Fontsize,PrimaryColour,SecondaryColour,OutlineColour,BackColour,"
             "Bold,Italic,Underline,StrikeOut,ScaleX,ScaleY,Spacing,Angle,BorderStyle,Outline,Shadow,Alignment,"
             "MarginL,MarginR,MarginV,Encoding\n"
-            "Style: Default,Noto Sans Devanagari,78,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,5,2,2,60,60,430,1\n\n"
+            "Style: Default,Noto Sans,84,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,6,2,2,70,70,420,1\n\n"
             "[Events]\nFormat: Layer,Start,End,Style,Name,MarginL,MarginR,MarginV,Effect,Text\n")
     t0, lines = 0.0, []
     for s, d in zip(scenes, durs):
-        words = s["narration"].split()
+        text = (s.get("caption_en") or s["narration"]).replace("{", "(").replace("}", ")").replace("\n", " ")
+        words = text.split()
         chunks = [" ".join(words[i:i + 4]) for i in range(0, len(words), 4)] or [""]
         total = sum(len(c) for c in chunks) or 1
         t = t0
@@ -242,35 +287,43 @@ def make_ass(scenes, durs):
     return p
 
 
-# 5) वीडियो जोड़ना -----------------------------------------------------------------
+# 5) वीडियो जोड़ना (फ़्रेम-सटीक, बिना ज़ूम के झटके) ------------------------------------
+FPS = 30
+
+
 def _dims(path):
     w, h = sh(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height",
                "-of", "csv=p=0:s=x", str(path)]).strip().split("x")
     return int(w), int(h)
 
 
-def _vf(c, seg):
+def _vf(c, stretch=""):
     w, h = _dims(c)
-    frames = max(int(seg * 30), 30)
-    grade = "eq=contrast=1.04:saturation=1.08"
-    zoom = f"zoompan=z='min(1+0.0004*on,1.07)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1080x1920:fps=30"
+    grade = "eq=contrast=1.04:saturation=1.06"
     if w / h <= 0.75:  # खड़ी क्लिप: पूरा फ़्रेम भरो
-        base = "scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps=30,setsar=1"
-        return f"{base},{zoom},{grade}"
-    # चौड़ी क्लिप: बीच में थोड़ी बड़ी तस्वीर, पीछे उसी की धुंधली परत (कम कटाव, ज़्यादा बाहर का दृश्य)
-    return ("split[a][b];[b]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=28:6[bg];"
-            "[a]scale=1250:-2:force_original_aspect_ratio=decrease,crop='min(iw,1080)':ih[fg];"
-            f"[bg][fg]overlay=(W-w)/2:(H-h)/2,fps=30,setsar=1,{zoom},{grade}")
+        return f"{stretch}scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,fps={FPS},setsar=1,{grade}"
+    # चौड़ी क्लिप: ज़्यादा दृश्य दिखे, पीछे उसी की धुंधली परत
+    return (f"{stretch}split[a][b];[b]scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920,boxblur=28:6[bg];"
+            "[a]scale=1080:-2[fg];"
+            f"[bg][fg]overlay=(W-w)/2:(H-h)/2,fps={FPS},setsar=1,{grade}")
 
 
 def assemble(clips, durs, voice, ass):
-    norm = []
+    norm, prev, cum = [], 0, 0.0
     for i, (c, d) in enumerate(zip(clips, durs)):
-        seg = d + (0.15 if i == len(clips) - 1 else 0)
+        cum += d
+        end = round(cum * FPS)
+        n = max(end - prev, 2) + (6 if i == len(clips) - 1 else 0)
+        prev = end
+        seg, cd = n / FPS, duration(c)
+        loop, stretch = [], ""
+        if cd < seg:
+            r = seg / cd
+            if r <= 1.6: stretch = f"setpts=PTS*{r:.4f},"  # थोड़ी धीमी करके खींचो, कटाव नहीं
+            else: loop = ["-stream_loop", "-1"]
         o = WORK / f"seg{i}.mp4"
-        sh(["ffmpeg", "-y", "-stream_loop", "-1", "-i", str(c), "-t", f"{seg:.3f}",
-            "-vf", _vf(c, seg),
-            "-an", "-c:v", "libx264", "-preset", "veryfast", "-crf", "23", "-pix_fmt", "yuv420p", str(o)])
+        sh(["ffmpeg", "-y"] + loop + ["-i", str(c), "-vf", _vf(c, stretch), "-frames:v", str(n), "-an", "-r", str(FPS),
+            "-c:v", "libx264", "-preset", "medium", "-crf", "20", "-pix_fmt", "yuv420p", str(o)])
         norm.append(o)
     lst = WORK / "list.txt"
     lst.write_text("".join(f"file '{p.name}'\n" for p in norm))
@@ -278,9 +331,27 @@ def assemble(clips, durs, voice, ass):
     sh(["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", str(lst), "-c", "copy", str(joined)])
     final = WORK / "final.mp4"
     sh(["ffmpeg", "-y", "-i", str(joined), "-i", str(voice), "-vf", f"ass={ass.as_posix()}",
-        "-map", "0:v", "-map", "1:a", "-c:v", "libx264", "-preset", "veryfast", "-crf", "22",
-        "-c:a", "aac", "-b:a", "160k", "-shortest", "-movflags", "+faststart", str(final)])
+        "-map", "0:v", "-map", "1:a", "-c:v", "libx264", "-preset", "medium", "-crf", "20",
+        "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", str(final)])
     return final
+
+
+# पूर्वावलोकन (मैं खुद जाँच सकूँ कि दृश्य बोले हुए से मेल खाते हैं) ------------------
+def make_preview(final, scenes, durs, meta):
+    pdir = pathlib.Path("preview"); pdir.mkdir(exist_ok=True)
+    frames, t0 = [], 0.0
+    for i, d in enumerate(durs):
+        f = WORK / f"pv{i}.jpg"
+        sh(["ffmpeg", "-y", "-ss", f"{t0 + d / 2:.2f}", "-i", str(final), "-frames:v", "1", "-vf", "scale=216:-2", str(f)])
+        frames.append(f); t0 += d
+    cmd = ["ffmpeg", "-y"]
+    for f in frames: cmd += ["-i", str(f)]
+    cmd += ["-filter_complex", f"hstack={len(frames)}", str(pdir / "latest.jpg")]
+    sh(cmd)
+    info = {"title": meta["title"], "voice_engine": ENGINE["name"], "footage": SOURCE["name"], "scenes": [
+        {"i": i, "dur": round(d, 2), "narration": s["narration"], "caption_en": s.get("caption_en"),
+         "query": s.get("query"), "alt": s.get("alt"), "alt2": s.get("alt2")} for i, (s, d) in enumerate(zip(scenes, durs))]}
+    (pdir / "latest.json").write_text(json.dumps(info, ensure_ascii=False, indent=1))
 
 
 # 6) YouTube अपलोड -----------------------------------------------------------------
@@ -317,6 +388,8 @@ def main():
     ass = make_ass(scenes, durs)
     final = assemble(clips, durs, voice, ass)
     print("Video ready:", final)
+    try: make_preview(final, scenes, durs, meta)
+    except Exception as e: print("preview failed:", e)
     if not (DRY or not os.getenv("YT_REFRESH_TOKEN")):
         upload(final, meta)
     else:
