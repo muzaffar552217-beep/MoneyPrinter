@@ -1,0 +1,70 @@
+{
+ "title": "बिना माचिस गैस जलाएं! गजब का किचन जुगाड़",
+ "voice_engine": "edge-tts (hi-IN-MadhurNeural)",
+ "footage": "Pixabay",
+ "scenes": [
+  {
+   "i": 0,
+   "dur": 4.42,
+   "narration": "अरे! क्या आपके घर में भी केले के छिलके बेकार समझकर फेंके जाते हैं?",
+   "caption_en": "Do you also throw away banana peels thinking they are useless?",
+   "query": "banana peels",
+   "alt": "banana",
+   "alt2": "kitchen"
+  },
+  {
+   "i": 1,
+   "dur": 4.5,
+   "narration": "रुको यार! आज ऐसा गजब का जुगाड़ बताऊंगा कि आप चौंक जाओगे!",
+   "caption_en": "Wait! Today I will show you an amazing trick that will shock you!",
+   "query": "excited person",
+   "alt": "banana",
+   "alt2": "home"
+  },
+  {
+   "i": 2,
+   "dur": 3.94,
+   "narration": "बस एक केले का छिलका लो और अपने पुराने चमड़े के जूतों पर रगड़ दो!",
+   "caption_en": "Just take a banana peel and rub it on your old leather shoes!",
+   "query": "rubbing shoe",
+   "alt": "banana",
+   "alt2": "shoes"
+  },
+  {
+   "i": 3,
+   "dur": 3.22,
+   "narration": "अब एक सूती कपड़े से इसे हल्के हाथ से पोंछ लो भाई!",
+   "caption_en": "Now wipe it gently with a cotton cloth, brother!",
+   "query": "cleaning shoe",
+   "alt": "banana",
+   "alt2": "cloth"
+  },
+  {
+   "i": 4,
+   "dur": 4.05,
+   "narration": "देखते ही देखते जूते ऐसे चमक उठेंगे जैसे अभी डिब्बे से निकले हों!",
+   "caption_en": "Instantly the shoes will shine as if they just came out of the box!",
+   "query": "shiny leather shoes",
+   "alt": "banana",
+   "alt2": "shoes"
+  },
+  {
+   "i": 5,
+   "dur": 3.83,
+   "narration": "बिना किसी महंगे पॉलिश के पैसे बचाए और जूते नए जैसे चमकाए!",
+   "caption_en": "Save money without any expensive polish and make shoes shine like new!",
+   "query": "smiling person",
+   "alt": "banana",
+   "alt2": "home"
+  },
+  {
+   "i": 6,
+   "dur": 4.99,
+   "narration": "है ना कमाल की ट्रिक? जल्दी से फॉलो बटन दबाओ ऐसे और मज़ेदार हैक्स के लिए!",
+   "caption_en": "Isn't it an amazing trick? Quickly hit the follow button for more such fun hacks!",
+   "query": "subscribe button",
+   "alt": "banana",
+   "alt2": "phone"
+  }
+ ]
+}
