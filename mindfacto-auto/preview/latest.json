@@ -1,52 +1,70 @@
 {
- "title": "मुरझाई हुई सेरी को ताज़ा करने का जादुई तरीका",
+ "title": "बिना जूसर के नींबू से सारा रस निकालने का जादुई तरीका",
  "voice_engine": "edge-tts (hi-IN-MadhurNeural)",
  "footage": "Pixabay",
  "scenes": [
   {
    "i": 0,
-   "dur": 3.2,
-   "narration": "अरे यार, मुरझाई हुई सेरी देखकर दिल टूट जाता है क्या?",
-   "caption_en": "Does seeing wilted celery break your heart?",
-   "query": "wilted celery",
-   "alt": null,
-   "alt2": null
+   "dur": 4.21,
+   "narration": "नींबू निचोड़ते-निचोड़ते थक गए हो क्या? रस निकलता ही नहीं?",
+   "caption_en": "Tired of squeezing lemons and getting no juice out?",
+   "query": "lemon",
+   "alt": "lemon",
+   "alt2": "kitchen"
   },
   {
    "i": 1,
-   "dur": 4.78,
-   "narration": "फेंकने से पहले रुको! बस इस तेज चाकू से नीचे के हिस्से को काटो।",
-   "caption_en": "Wait before throwing! Just cut the bottom ends using this sharp knife.",
-   "query": "kitchen knife",
-   "alt": null,
-   "alt2": null
+   "dur": 4.06,
+   "narration": "आज एक ऐसा धांसू जुगाड़ बताऊंगा कि बूंद-बूंद रस बाहर आ जाएगा!",
+   "caption_en": "Today I will show you a trick to get every drop out!",
+   "query": "cutting lemon",
+   "alt": "lemon",
+   "alt2": "kitchen"
   },
   {
    "i": 2,
-   "dur": 3.69,
-   "narration": "अब इसे ठंडे पानी से भरे गिलास में कुछ घंटों के लिए भिगो दो!",
-   "caption_en": "Now soak it in a glass of cold water for a few hours!",
-   "query": "glass of water",
-   "alt": null,
-   "alt2": null
+   "dur": 3.65,
+   "narration": "बस नींबू को काउंटर पर रखकर हल्के हाथों से थोड़ा रोल कर लो!",
+   "caption_en": "Just roll the lemon gently on the counter first!",
+   "query": "rolling lemon",
+   "alt": "lemon",
+   "alt2": "hands"
   },
   {
    "i": 3,
-   "dur": 3.88,
-   "narration": "देखते ही देखते यह दोबारा एकदम ताज़ा और क्रिस्पी हो जाएगी।",
-   "caption_en": "Watch it become totally fresh and crispy again in no time.",
-   "query": "fresh celery",
-   "alt": null,
-   "alt2": null
+   "dur": 2.48,
+   "narration": "अब इसे बीच से काटो और देखना कमाल!",
+   "caption_en": "Now cut it in half and watch the magic happen!",
+   "query": "cutting lemon",
+   "alt": "lemon",
+   "alt2": "knife"
   },
   {
    "i": 4,
-   "dur": 3.46,
-   "narration": "है ना कमाल का जुगाड़? क्या आप इसे ट्राई करेंगे?",
-   "caption_en": "Isn't this an amazing hack? Will you try it?",
-   "query": "crisp vegetables",
-   "alt": null,
-   "alt2": null
+   "dur": 3.52,
+   "narration": "अंदर के रेशे ढीले हो जाएंगे और रस रॉकेट की तरह निकलेगा!",
+   "caption_en": "The inside fibers loosen up and juice flows out super fast!",
+   "query": "juicing lemon",
+   "alt": "lemon",
+   "alt2": "kitchen"
+  },
+  {
+   "i": 5,
+   "dur": 3.21,
+   "narration": "बिना किसी महंगे जूसर के ढेर सारा नींबू का रस तैयार!",
+   "caption_en": "Lots of lemon juice ready without any expensive juicer!",
+   "query": "lemon juice",
+   "alt": "lemon",
+   "alt2": "glass"
+  },
+  {
+   "i": 6,
+   "dur": 4.53,
+   "narration": "है ना गजब की ट्रिक? ऐसे ही मजेदार टिप्स के लिए जल्दी से फॉलो करो!",
+   "caption_en": "Isn't this an awesome trick? Follow quickly for more fun tips!",
+   "query": "fresh lemon",
+   "alt": "lemon",
+   "alt2": "kitchen"
   }
  ]
 }
