@@ -1,70 +1,52 @@
 {
- "title": "पेन की स्प्रिंग से बचाएं अपना महंगा चार्जर",
+ "title": "मुरझाई हुई सेरी को ताज़ा करने का जादुई तरीका",
  "voice_engine": "edge-tts (hi-IN-MadhurNeural)",
  "footage": "Pixabay",
  "scenes": [
   {
    "i": 0,
-   "dur": 4.72,
-   "narration": "अरे रुको! क्या आपके फोन का चार्जर बार-बार मुड़कर बीच से टूट जाता है?",
-   "caption_en": "Does your phone charger cable always bend and break near the end?",
-   "query": "phone charger",
-   "alt": "charger",
-   "alt2": "cable"
+   "dur": 3.2,
+   "narration": "अरे यार, मुरझाई हुई सेरी देखकर दिल टूट जाता है क्या?",
+   "caption_en": "Does seeing wilted celery break your heart?",
+   "query": "wilted celery",
+   "alt": null,
+   "alt2": null
   },
   {
    "i": 1,
-   "dur": 4.66,
-   "narration": "इसे बचाने का एक गजब का जुगाड़ बताता हूँ जो आज ही आपके बहुत काम आएगा!",
-   "caption_en": "Here is an amazing trick to protect it that you need today!",
-   "query": "mobile cable",
-   "alt": "charger",
-   "alt2": "repair"
+   "dur": 4.78,
+   "narration": "फेंकने से पहले रुको! बस इस तेज चाकू से नीचे के हिस्से को काटो।",
+   "caption_en": "Wait before throwing! Just cut the bottom ends using this sharp knife.",
+   "query": "kitchen knife",
+   "alt": null,
+   "alt2": null
   },
   {
    "i": 2,
-   "dur": 4.01,
-   "narration": "बस एक खाली पेन की स्प्रिंग लो और उसे आराम से बाहर निकाल लो!",
-   "caption_en": "Just take an empty pen spring and pull it out carefully!",
-   "query": "pen spring",
-   "alt": "spring",
-   "alt2": "pen"
+   "dur": 3.69,
+   "narration": "अब इसे ठंडे पानी से भरे गिलास में कुछ घंटों के लिए भिगो दो!",
+   "caption_en": "Now soak it in a glass of cold water for a few hours!",
+   "query": "glass of water",
+   "alt": null,
+   "alt2": null
   },
   {
    "i": 3,
-   "dur": 4.33,
-   "narration": "अब इस स्प्रिंग को धीरे-धीरे अपने चार्जर केबल के दोनों सिरों पर लपेट दो।",
-   "caption_en": "Now slowly wrap this spring around both ends of your charger cable.",
-   "query": "wrapping spring",
-   "alt": "charger",
-   "alt2": "hands"
+   "dur": 3.88,
+   "narration": "देखते ही देखते यह दोबारा एकदम ताज़ा और क्रिस्पी हो जाएगी।",
+   "caption_en": "Watch it become totally fresh and crispy again in no time.",
+   "query": "fresh celery",
+   "alt": null,
+   "alt2": null
   },
   {
    "i": 4,
-   "dur": 5.08,
-   "narration": "लीजिए, आपकी केबल अब कभी नहीं मुड़ेगी और सालो-साल बिल्कुल नई जैसी चलेगी!",
-   "caption_en": "Look, your cable will never bend and will last for years!",
-   "query": "charging phone",
-   "alt": "charger",
-   "alt2": "phone"
-  },
-  {
-   "i": 5,
-   "dur": 2.62,
-   "narration": "है ना एकदम कमाल का और बिलकुल फ्री का जुगाड़?",
-   "caption_en": "Isn't this an amazing and completely free life hack?",
-   "query": "usb cable",
-   "alt": "cable",
-   "alt2": "gadget"
-  },
-  {
-   "i": 6,
-   "dur": 3.61,
-   "narration": "ऐसी ही काम की टिप्स के लिए जल्दी से MindFacto को फॉलो कर लो!",
-   "caption_en": "Quickly follow MindFacto for more useful tips like this!",
-   "query": "smartphone",
-   "alt": "phone",
-   "alt2": "tech"
+   "dur": 3.46,
+   "narration": "है ना कमाल का जुगाड़? क्या आप इसे ट्राई करेंगे?",
+   "caption_en": "Isn't this an amazing hack? Will you try it?",
+   "query": "crisp vegetables",
+   "alt": null,
+   "alt2": null
   }
  ]
 }
