@@ -1,70 +1,70 @@
 {
- "title": "बिना जूसर के नींबू से सारा रस निकालने का जादुई तरीका",
+ "title": "नींबू से डबल जूस निकालने का यह जादुई तरीका देखकर चौंक जाएंगे!",
  "voice_engine": "edge-tts (hi-IN-MadhurNeural)",
  "footage": "Pixabay",
  "scenes": [
   {
    "i": 0,
-   "dur": 4.21,
-   "narration": "नींबू निचोड़ते-निचोड़ते थक गए हो क्या? रस निकलता ही नहीं?",
-   "caption_en": "Tired of squeezing lemons and getting no juice out?",
-   "query": "lemon",
+   "dur": 4.89,
+   "narration": "नींबू निचोड़ते समय रस कम निकलता है? यह गजब का जुगाड़ देखो!",
+   "caption_en": "Lemon gives less juice? Watch this amazing trick!",
+   "query": "lemon squeezing",
    "alt": "lemon",
    "alt2": "kitchen"
   },
   {
    "i": 1,
-   "dur": 4.06,
-   "narration": "आज एक ऐसा धांसू जुगाड़ बताऊंगा कि बूंद-बूंद रस बाहर आ जाएगा!",
-   "caption_en": "Today I will show you a trick to get every drop out!",
-   "query": "cutting lemon",
+   "dur": 3.02,
+   "narration": "मार्केट से नींबू लाने के बाद उसे सीधे मत काटो!",
+   "caption_en": "Do not cut lemons directly after bringing them home!",
+   "query": "fresh lemon",
    "alt": "lemon",
    "alt2": "kitchen"
   },
   {
    "i": 2,
-   "dur": 3.65,
-   "narration": "बस नींबू को काउंटर पर रखकर हल्के हाथों से थोड़ा रोल कर लो!",
-   "caption_en": "Just roll the lemon gently on the counter first!",
+   "dur": 3.29,
+   "narration": "काटने से पहले नींबू को किचन काउंटर पर जोर से रोल करो।",
+   "caption_en": "Roll the lemon hard on the kitchen counter before cutting.",
    "query": "rolling lemon",
    "alt": "lemon",
    "alt2": "hands"
   },
   {
    "i": 3,
-   "dur": 2.48,
-   "narration": "अब इसे बीच से काटो और देखना कमाल!",
-   "caption_en": "Now cut it in half and watch the magic happen!",
+   "dur": 3.94,
+   "narration": "हल्का सा दबाते हुए रोल करने से अंदर के सारे रेशे टूट जाते हैं।",
+   "caption_en": "Rolling with light pressure breaks all internal fibers.",
+   "query": "pressing lemon",
+   "alt": "lemon",
+   "alt2": "hands"
+  },
+  {
+   "i": 4,
+   "dur": 3.18,
+   "narration": "अब बीच में से काटकर रस निकालो, हैरान रह जाओगे!",
+   "caption_en": "Now cut in half and extract juice, you will be amazed!",
    "query": "cutting lemon",
    "alt": "lemon",
    "alt2": "knife"
   },
   {
-   "i": 4,
-   "dur": 3.52,
-   "narration": "अंदर के रेशे ढीले हो जाएंगे और रस रॉकेट की तरह निकलेगा!",
-   "caption_en": "The inside fibers loosen up and juice flows out super fast!",
-   "query": "juicing lemon",
-   "alt": "lemon",
-   "alt2": "kitchen"
-  },
-  {
    "i": 5,
-   "dur": 3.21,
-   "narration": "बिना किसी महंगे जूसर के ढेर सारा नींबू का रस तैयार!",
-   "caption_en": "Lots of lemon juice ready without any expensive juicer!",
+   "dur": 2.88,
+   "narration": "डबल जूस निकलेगा और मेहनत भी आधी लगेगी।",
+   "caption_en": "Double juice will come out with half the effort.",
    "query": "lemon juice",
    "alt": "lemon",
-   "alt2": "glass"
+   "alt2": "kitchen"
   },
   {
    "i": 6,
-   "dur": 4.53,
-   "narration": "है ना गजब की ट्रिक? ऐसे ही मजेदार टिप्स के लिए जल्दी से फॉलो करो!",
-   "caption_en": "Isn't this an awesome trick? Follow quickly for more fun tips!",
+   "dur": 4.6,
+   "narration": "है ना कमाल का आइडिया? ऐसे ही और मजेदार हैक्स के लिए फॉलो करो!",
+   "caption_en": "Isn't it amazing? Follow for more fun life hacks!",
    "query": "fresh lemon",
    "alt": "lemon",
-   "alt2": "kitchen"
+   "alt2": "home"
   }
  ]
 }
