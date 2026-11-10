@@ -307,7 +307,7 @@ def _cf_image(prompt, dst):
 def ai_images(history):
     """AI हर सीन के लिए असली जैसी फोटो बनाता है -> दृश्य हमेशा बोले हुए से मेल खाता है।"""
     data = _gemini([{"text": f"""You write a viral Hindi YouTube Short for channel MindFacto. Pick ONE safe, useful, easy everyday life hack (topic area: {TOPIC}). Do NOT repeat: {history[-40:]}.
-Return ONLY JSON: {{"scenes": [7 objects in story order, each: "narration": one or two SHORT lively Hindi sentences in Devanagari like an excited friend (all together 70-90 words; first = hook, last = question/follow request), "caption_en": same meaning in simple English max 14 words, "image_prompt": English prompt for ONE realistic vertical photo of EXACTLY what is happening in this narration: name the objects, hands, place, lighting. Style: realistic smartphone photo, natural light, sharp focus, wide shot, no text, no logos, no cartoon],
+Return ONLY JSON: {{"scenes": [8 objects in story order, each: "narration": one or two SHORT lively Hindi sentences in Devanagari like an excited friend (all together 65-85 words). SCENE 1 MUST be a shocking curiosity hook in under 8 words that makes people stop scrolling (e.g. a surprising claim or 'you have been doing this wrong!'), NO greeting. Use a surprising fact or a 'before vs after' payoff, build tension, reveal the trick in the middle, and the LAST scene must tease a bonus ('follow for part 2, the next hack is even crazier!'), "caption_en": same meaning in simple English max 14 words, "image_prompt": English prompt for ONE realistic vertical photo of EXACTLY what is happening in this narration: name the objects, hands, place, lighting. Style: realistic smartphone photo, natural light, sharp focus, wide shot, no text, no logos, no cartoon],
  "title": Hindi title under 70 chars describing exactly this hack, "description": 2 Hindi lines + #Shorts #MindFacto #lifehacks, "tags": [up to 8]}}"""}])
     sc = [x for x in data["scenes"] if x.get("narration") and x.get("image_prompt")]
     assert len(sc) >= 5
@@ -325,7 +325,7 @@ def scene_clip(scene, idx, dur):
     out = WORK / f"raw{idx}.mp4"
     if scene.get("_img"):
         sh(["ffmpeg", "-y", "-loop", "1", "-framerate", "30", "-i", str(scene["_img"]), "-t", f"{dur + 1:.2f}",
-            "-vf", "scale=1080:-2,format=yuv420p", "-c:v", "libx264", "-preset", "veryfast", "-r", "30", str(out)])
+            "-vf", f"scale=w='1080*(1+0.07*t/{dur + 1:.2f})':h=-2:eval=frame,crop=1080:1080,format=yuv420p", "-c:v", "libx264", "-preset", "veryfast", "-r", "30", str(out)])
         return out
     if scene.get("_cand"):
         try:
@@ -373,13 +373,13 @@ def make_ass(scenes, durs):
             "[V4+ Styles]\nFormat: Name,Fontname,Fontsize,PrimaryColour,SecondaryColour,OutlineColour,BackColour,"
             "Bold,Italic,Underline,StrikeOut,ScaleX,ScaleY,Spacing,Angle,BorderStyle,Outline,Shadow,Alignment,"
             "MarginL,MarginR,MarginV,Encoding\n"
-            "Style: Default,Noto Sans,84,&H00FFFFFF,&H000000FF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,6,2,2,70,70,420,1\n\n"
+            "Style: Default,Noto Sans,100,&H0000E5FF,&H000000FF,&H00000000,&H80000000,-1,0,0,0,100,100,0,0,1,6,2,2,70,70,420,1\n\n"
             "[Events]\nFormat: Layer,Start,End,Style,Name,MarginL,MarginR,MarginV,Effect,Text\n")
     t0, lines = 0.0, []
     for s, d in zip(scenes, durs):
         text = (s.get("caption_en") or s["narration"]).replace("{", "(").replace("}", ")").replace("\n", " ")
         words = text.split()
-        chunks = [" ".join(words[i:i + 4]) for i in range(0, len(words), 4)] or [""]
+        chunks = [" ".join(words[i:i + 3]).upper() for i in range(0, len(words), 3)] or [""]
         total = sum(len(c) for c in chunks) or 1
         t = t0
         for c in chunks:
@@ -434,7 +434,7 @@ def assemble(clips, durs, voice, ass):
     joined = WORK / "joined.mp4"
     sh(["ffmpeg", "-y", "-f", "concat", "-safe", "0", "-i", str(lst), "-c", "copy", str(joined)])
     final = WORK / "final.mp4"
-    sh(["ffmpeg", "-y", "-i", str(joined), "-i", str(voice), "-vf", f"ass={ass.as_posix()}",
+    sh(["ffmpeg", "-y", "-i", str(joined), "-i", str(voice), "-vf", f"ass={ass.as_posix()}", "-af", "highpass=f=80,equalizer=f=3000:t=q:w=1:g=3,acompressor=threshold=-20dB:ratio=3:attack=5:release=80,loudnorm=I=-14:TP=-1.5:LRA=7,aresample=44100",
         "-map", "0:v", "-map", "1:a", "-c:v", "libx264", "-preset", "medium", "-crf", "20",
         "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", str(final)])
     return final
