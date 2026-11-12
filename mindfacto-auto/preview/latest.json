@@ -1,70 +1,61 @@
 {
- "title": "अलमारी की सीलन और बदबू भगाने का चॉक वाला गजब का जुगाड़!",
+ "title": "मुरझाया सेlery ताज़ा करने का जादुई तरीका",
  "voice_engine": "edge-tts (hi-IN-MadhurNeural)",
  "footage": "Pixabay",
  "scenes": [
   {
    "i": 0,
-   "dur": 4.0,
-   "narration": "क्या आपकी अलमारी में रखे कपड़ों से अजीब सी सीलन वाली बदबू आती है?",
-   "caption_en": "Do clothes in your wardrobe have a weird damp smell?",
-   "query": "wardrobe clothes",
-   "alt": "chalk",
-   "alt2": "wardrobe"
+   "dur": 1.7,
+   "narration": "मुरझाया सेlery तुरंत ताज़ा करें!",
+   "caption_en": "Revive wilted celery instantly!",
+   "query": "limp celery",
+   "alt": null,
+   "alt2": null
   },
   {
    "i": 1,
-   "dur": 3.24,
-   "narration": "पैसे खर्च किए बिना इस समस्या से मिनटों में छुटकारा पाएं!",
-   "caption_en": "Get rid of this problem in minutes without spending money!",
-   "query": "white chalk",
-   "alt": "chalk",
-   "alt2": "wardrobe"
+   "dur": 1.73,
+   "narration": "एक कटोरा ठंडा पानी ले लो।",
+   "caption_en": "Take a bowl of cold water.",
+   "query": "kitchen bowl",
+   "alt": null,
+   "alt2": null
   },
   {
    "i": 2,
-   "dur": 3.49,
-   "narration": "बस आपको चाहिए एक साधारण सा स्कूल वाला चॉक का टुकड़ा!",
-   "caption_en": "All you need is a simple school chalk piece!",
-   "query": "holding chalk",
-   "alt": "chalk",
-   "alt2": "wardrobe"
+   "dur": 1.42,
+   "narration": "इसमें साफ़ पानी भर लें।",
+   "caption_en": "Fill it with clean water.",
+   "query": "pouring water",
+   "alt": null,
+   "alt2": null
   },
   {
    "i": 3,
-   "dur": 2.83,
-   "narration": "अब इस चॉक के टुकड़े को कपड़ों के बीच में रख दें।",
-   "caption_en": "Now place this piece of chalk among the clothes.",
-   "query": "placing chalk",
-   "alt": "chalk",
-   "alt2": "wardrobe"
+   "dur": 1.67,
+   "narration": "कच्चे आलू के टुकड़े काटें।",
+   "caption_en": "Cut pieces of raw potato.",
+   "query": "raw potato",
+   "alt": null,
+   "alt2": null
   },
   {
    "i": 4,
-   "dur": 2.77,
-   "narration": "चॉक सारी नमी और बदबू को तुरंत सोख लेगा!",
-   "caption_en": "The chalk will instantly absorb all moisture and bad smell!",
-   "query": "absorbing water",
-   "alt": "chalk",
-   "alt2": "wardrobe"
+   "dur": 1.93,
+   "narration": "पानी में आलू और सेलेरी डालें!",
+   "caption_en": "Add potato and celery to the water!",
+   "query": "cutting potato",
+   "alt": null,
+   "alt2": null
   },
   {
    "i": 5,
-   "dur": 3.26,
-   "narration": "आपके कपड़े हमेशा महकेंगे और बिल्कुल फ्रेश रहेंगे!",
-   "caption_en": "Your clothes will always smell good and stay fresh!",
-   "query": "clean clothes",
-   "alt": "chalk",
-   "alt2": "wardrobe"
-  },
-  {
-   "i": 6,
-   "dur": 4.55,
-   "narration": "है ना कमाल का जुगाड़? ऐसे ही और मज़ेदार हैक्स के लिए फॉलो करें!",
-   "caption_en": "Isn't this amazing? Follow for more such fun hacks!",
-   "query": "school chalk",
-   "alt": "chalk",
-   "alt2": "wardrobe"
+   "dur": 3.67,
+   "narration": "MindFacto रोज़ एक हैक लाता है, कल: दूध उबालने की ट्रिक!",
+   "caption_en": "MindFacto brings daily hacks, tomorrow: milk boiling trick!",
+   "query": "fresh celery",
+   "alt": null,
+   "alt2": null
   }
  ]
 }
