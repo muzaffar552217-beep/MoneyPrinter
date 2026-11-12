@@ -252,7 +252,7 @@ def _gemini(parts, temp=1.0):
 def footage_first(history):
     """पहले फुटेज चुनो, फिर Gemini उसी फुटेज को देखकर स्क्रिप्ट लिखे -> आवाज़ और विज़ुअल हमेशा मेल खाते हैं।"""
     import base64
-    plan = _gemini([{"text": f"""Plan a YouTube Short about ONE safe, useful everyday life hack (topic area: {TOPIC}). Do NOT repeat: {history[-40:]}.
+    plan = _gemini([{"text": f"""Plan a YouTube Short about ONE safe, useful everyday life hack (topic area: {TOPIC}). ONLY use real, true, widely known and safe hacks; never invent facts or add ingredients that do nothing (no myths). Do NOT repeat: {history[-40:]}.
 Stock-video libraries only have COMMON footage, so the hack must be explainable with common visuals: kitchen, cleaning, water, fruits, vegetables, clothes, plants, phone, hands, tools, home.
 Return ONLY JSON: {{"hack": "one English sentence describing the hack", "queries": [7 different stock-video search phrases, 1-3 plain English words each, each a common visible object or action that fits the hack in story order]}}"""}])
     hack, queries = plan["hack"], [str(q) for q in plan["queries"]][:7]
@@ -286,6 +286,7 @@ Return ONLY JSON: {{"scenes": [{{"narration": "...", "caption_en": "same meaning
     for s, (q, c) in zip(sc, keep): s["_cand"] = c; s["query"] = q
     data["scenes"] = sc
     for k in ("title", "description", "tags"): assert k in data
+    assert sum(len(x["narration"].split()) for x in sc) >= 50, "script too short"
     return data
 
 
@@ -306,7 +307,7 @@ def _cf_image(prompt, dst):
 
 def ai_images(history):
     """AI हर सीन के लिए असली जैसी फोटो बनाता है -> दृश्य हमेशा बोले हुए से मेल खाता है।"""
-    data = _gemini([{"text": f"""You write a viral Hindi YouTube Short for channel MindFacto. Pick ONE safe, useful, easy everyday life hack (topic area: {TOPIC}). Do NOT repeat: {history[-40:]}.
+    data = _gemini([{"text": f"""You write a viral Hindi YouTube Short for channel MindFacto. Pick ONE safe, useful, easy everyday life hack (topic area: {TOPIC}). ONLY use real, true, widely known and safe hacks; never invent facts or add ingredients that do nothing (no myths). Do NOT repeat: {history[-40:]}.
 Return ONLY JSON: {{"scenes": [8 objects in story order, each: "narration": one or two SHORT lively Hindi sentences in Devanagari like an excited friend (all together 65-85 words). SCENE 1 MUST be a shocking curiosity hook in under 8 words that makes people stop scrolling (e.g. a surprising claim or 'you have been doing this wrong!'), NO greeting. Use a surprising fact or a 'before vs after' payoff, build tension, reveal the trick in the middle, the LAST scene must give a clear reason to subscribe: say that MindFacto brings one new life hack EVERY DAY and tease tomorrow's hack by name (e.g. 'Subscribe to MindFacto, tomorrow: a trick to stop milk from boiling over!'), "caption_en": same meaning in simple English max 14 words, "image_prompt": English prompt for ONE realistic vertical photo of EXACTLY what is happening in this narration: name the objects, hands, place, lighting. Style: realistic smartphone photo, natural light, sharp focus, wide shot, no text, no logos, no cartoon],
  "title": Hindi title under 70 chars describing exactly this hack, "description": 2 Hindi lines + #Shorts #MindFacto #lifehacks, "tags": [up to 8]}}"""}])
     sc = [x for x in data["scenes"] if x.get("narration") and x.get("image_prompt")]
@@ -317,6 +318,7 @@ Return ONLY JSON: {{"scenes": [8 objects in story order, each: "narration": one 
         x["_img"] = img; x["query"] = x["image_prompt"][:60]
     data["scenes"] = sc
     for k in ("title", "description", "tags"): assert k in data
+    assert sum(len(x["narration"].split()) for x in sc) >= 50, "script too short"
     SOURCE["name"] = "AI-generated images (Cloudflare FLUX)"
     return data
 
@@ -490,7 +492,11 @@ def main():
     try:
         if meta: pass
         elif not os.getenv("PIXABAY_API_KEY"): raise RuntimeError("no pixabay")
-        else: meta = footage_first(hist)
+        else:
+            for _try in range(3):
+                try: meta = footage_first(hist); break
+                except AssertionError as e: print("retry:", e)
+            if not meta: raise RuntimeError("footage-first retries failed")
     except Exception as e:
         print("footage-first failed, old method:", e)
         meta = make_script(hist)
