@@ -50,6 +50,16 @@ jobs:
           path: mindfacto-auto/work/final.mp4
           if-no-files-found: ignore
           retention-days: 14
+      - name: Publish video link (latest release)
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -f work/final.mp4 ]; then
+            cp work/final.mp4 /tmp/mindfacto-latest.mp4
+            gh release delete latest-video --yes --cleanup-tag -R "$GITHUB_REPOSITORY" || true
+            gh release create latest-video /tmp/mindfacto-latest.mp4 --title "Latest MindFacto video" --notes "auto" -R "$GITHUB_REPOSITORY" || true
+          fi
       - name: Save history
         run: |
           git config user.name "mindfacto-bot"
