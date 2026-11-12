@@ -1,61 +1,70 @@
 {
- "title": "मुरझाया सेlery ताज़ा करने का जादुई तरीका",
+ "title": "आलू को लंबे समय तक ताजा रखने का जादुई सेब वाला तरीका",
  "voice_engine": "edge-tts (hi-IN-MadhurNeural)",
  "footage": "Pixabay",
  "scenes": [
   {
    "i": 0,
-   "dur": 1.7,
-   "narration": "मुरझाया सेlery तुरंत ताज़ा करें!",
-   "caption_en": "Revive wilted celery instantly!",
-   "query": "limp celery",
-   "alt": null,
-   "alt2": null
+   "dur": 3.48,
+   "narration": "क्या आपके आलू भी जल्दी उग जाते हैं और खराब हो जाते हैं?",
+   "caption_en": "Do your potatoes sprout quickly and go bad?",
+   "query": "raw potatoes",
+   "alt": "potato",
+   "alt2": "kitchen"
   },
   {
    "i": 1,
-   "dur": 1.73,
-   "narration": "एक कटोरा ठंडा पानी ले लो।",
-   "caption_en": "Take a bowl of cold water.",
-   "query": "kitchen bowl",
-   "alt": null,
-   "alt2": null
+   "dur": 3.1,
+   "narration": "बस किचन बास्केट में आलू के साथ एक सेब रख दें!",
+   "caption_en": "Just keep an apple with potatoes in the basket!",
+   "query": "apple in basket",
+   "alt": "potato",
+   "alt2": "kitchen"
   },
   {
    "i": 2,
-   "dur": 1.42,
-   "narration": "इसमें साफ़ पानी भर लें।",
-   "caption_en": "Fill it with clean water.",
-   "query": "pouring water",
-   "alt": null,
-   "alt2": null
+   "dur": 3.63,
+   "narration": "जी हां, सेब से निकलने वाली गैस आलू को उगने से रोकती है!",
+   "caption_en": "Yes, gas from the apple stops potatoes from sprouting!",
+   "query": "fresh apple",
+   "alt": "potato",
+   "alt2": "kitchen"
   },
   {
    "i": 3,
-   "dur": 1.67,
-   "narration": "कच्चे आलू के टुकड़े काटें।",
-   "caption_en": "Cut pieces of raw potato.",
-   "query": "raw potato",
-   "alt": null,
-   "alt2": null
+   "dur": 3.37,
+   "narration": "इससे आपके आलू हफ्तों तक बिल्कुल ताजे और कड़े रहेंगे।",
+   "caption_en": "This keeps your potatoes fresh and firm for weeks.",
+   "query": "fresh potatoes",
+   "alt": "potato",
+   "alt2": "kitchen"
   },
   {
    "i": 4,
-   "dur": 1.93,
-   "narration": "पानी में आलू और सेलेरी डालें!",
-   "caption_en": "Add potato and celery to the water!",
-   "query": "cutting potato",
-   "alt": null,
-   "alt2": null
+   "dur": 3.64,
+   "narration": "एक छोटा सा सेब बचाएगा आपके ढेर सारे पैसे और मेहनत!",
+   "caption_en": "One small apple will save you lots of money!",
+   "query": "holding apple",
+   "alt": "potato",
+   "alt2": "kitchen"
   },
   {
    "i": 5,
-   "dur": 3.67,
-   "narration": "MindFacto रोज़ एक हैक लाता है, कल: दूध उबालने की ट्रिक!",
-   "caption_en": "MindFacto brings daily hacks, tomorrow: milk boiling trick!",
-   "query": "fresh celery",
-   "alt": null,
-   "alt2": null
+   "dur": 2.67,
+   "narration": "है ना कमाल का और आसान किचन का देसी जुगाड़?",
+   "caption_en": "Isn't this an amazing and easy kitchen trick?",
+   "query": "vegetable basket",
+   "alt": "potato",
+   "alt2": "kitchen"
+  },
+  {
+   "i": 6,
+   "dur": 3.36,
+   "narration": "ऐसी ही गजब की टिप्स के लिए अभी माइंडफैक्टो को फॉलो करो!",
+   "caption_en": "Follow MindFacto right now for more amazing tips!",
+   "query": "fresh vegetables",
+   "alt": "potato",
+   "alt2": "kitchen"
   }
  ]
 }
