@@ -49,7 +49,7 @@ Return ONLY JSON with these keys, in this exact order:
   "description": 2 Hindi lines about that same hack + hashtags #Shorts #MindFacto #lifehacks,
   "tags": list of up to 8 short tags.
 """
-    models = [MODEL] + [m for m in ("gemini-flash-lite-latest", "gemini-flash-latest", "gemini-2.5-flash", "gemini-2.5-flash-lite") if m != MODEL]
+    models = [first or MODEL]; models += [m for m in ("gemini-2.5-flash", "gemini-flash-latest", "gemini-flash-lite-latest", "gemini-2.5-flash-lite") if m not in models]
     r = None
     for model in models:
         for attempt in range(4):
@@ -228,7 +228,7 @@ def _generated(idx, dur):
     return out
 
 
-def _gemini(parts, temp=1.0):
+def _gemini(parts, temp=1.0, first=None):
     import base64  # noqa
     models = [MODEL] + [m for m in ("gemini-flash-lite-latest", "gemini-flash-latest", "gemini-2.5-flash", "gemini-2.5-flash-lite") if m != MODEL]
     for model in models:
@@ -272,7 +272,7 @@ Return ONLY JSON: {{"hack": "one English sentence describing the hack", "queries
     if len(keep) < 5: raise RuntimeError("not enough footage")
     parts = [{"text": f"""You write a viral Hindi YouTube Short (channel MindFacto) about this life hack: {hack}.
 Below are {len(keep)} stock-video thumbnails in story order. For EACH image write the narration that is spoken while that exact shot is on screen. The narration must describe or fit what is truly visible in that image, no contradictions.
-Hindi in Devanagari, one or two SHORT lively sentences, like an excited friend, all together 105-125 words (about 40 seconds when spoken). First = a shocking curiosity hook under 8 words, no greeting. the LAST scene must give a clear reason to subscribe: first ask ONE simple question viewers answer in the comments (e.g. 'Did you know this? Comment YES or NO!'), then say that MindFacto brings one new life hack EVERY DAY and tease tomorrow's hack by name (e.g. 'Subscribe to MindFacto, tomorrow: a trick to stop milk from boiling over!').
+Hindi in Devanagari, EXACTLY two lively sentences per image (12-18 words each, 24-36 words per image), like an excited friend, all together 105-125 words (about 40 seconds when spoken). First = a shocking curiosity hook under 8 words, no greeting. the LAST scene must give a clear reason to subscribe: first ask ONE simple question viewers answer in the comments (e.g. 'Did you know this? Comment YES or NO!'), then say that MindFacto brings one new life hack EVERY DAY and tease tomorrow's hack by name (e.g. 'Subscribe to MindFacto, tomorrow: a trick to stop milk from boiling over!').
 Return ONLY JSON: {{"scenes": [{{"narration": "...", "caption_en": "same meaning in simple English, max 14 words"}} one per image in order], "title": "Hindi title under 70 chars describing exactly this hack", "description": "2 Hindi lines + #Shorts #MindFacto #lifehacks", "tags": [up to 8]}}"""}]
     for i, (q, c) in enumerate(keep):
         try:
@@ -280,7 +280,7 @@ Return ONLY JSON: {{"scenes": [{{"narration": "...", "caption_en": "same meaning
             parts += [{"text": f"Image {i}:"}, {"inlineData": {"mimeType": "image/jpeg", "data": base64.b64encode(img).decode()}}]
         except Exception as e:
             print("thumb failed:", e); parts.append({"text": f"Image {i}: (search: {q})"})
-    data = _gemini(parts, 0.9)
+    data = _gemini(parts, 0.9, first="gemini-2.5-flash")
     sc = data["scenes"][:len(keep)]
     assert len(sc) == len(keep), "scene count mismatch"
     for s, (q, c) in zip(sc, keep): s["_cand"] = c; s["query"] = q
