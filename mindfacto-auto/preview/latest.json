@@ -1,41 +1,86 @@
 {
- "title": "Remove Price Tag Residue Instantly with Cooking Oil",
+ "title": "Keep Leafy Greens Fresh Longer With Damp Paper Towel Hack",
  "voice_engine": "edge-tts (hi-IN-MadhurNeural)",
  "footage": "Pixabay",
  "scenes": [
   {
    "i": 0,
-   "dur": 2.44,
-   "narration": "प्राइस टैग का जिद्दी गोंद परेशान कर रहा है?",
-   "caption_en": "Struggling with sticky price tag residue?",
-   "query": "price tag",
+   "dur": 1.61,
+   "narration": "पत्तियां ताज़ा रखने का मैजिक!",
+   "caption_en": "Magic to keep leaves fresh!",
+   "query": "fresh spinach",
    "alt": null,
    "alt2": null
   },
   {
    "i": 1,
-   "dur": 3.45,
-   "narration": "बस कुछ बूंदें कुकिंग ऑयल की लगाएं और दो मिनट छोड़ दें!",
-   "caption_en": "Apply a few drops of cooking oil and wait two minutes!",
-   "query": "pouring oil",
+   "dur": 2.65,
+   "narration": "क्या आपकी हरी सब्जियां जल्दी खराब हो जाती हैं?",
+   "caption_en": "Do your leafy greens spoil quickly?",
+   "query": "wet paper towel",
    "alt": null,
    "alt2": null
   },
   {
    "i": 2,
-   "dur": 3.75,
-   "narration": "तेल गोंद को तोड़ देता है जिससे वह आसानी से निकल जाता है।",
-   "caption_en": "Oil breaks down the adhesive for easy removal.",
-   "query": "rubbing hands",
+   "dur": 2.85,
+   "narration": "अब इन्हें हफ्तों तक ताज़ा रखना बेहद आसान है।",
+   "caption_en": "Now it's very easy to keep them fresh for weeks.",
+   "query": "wrapping leaves",
    "alt": null,
    "alt2": null
   },
   {
    "i": 3,
-   "dur": 9.75,
-   "narration": "क्या आप यह जानते थे? कमेंट में हाँ या ना बताएं! MindFacto हर दिन एक नया लाइफ हैक लाता है, कल का हैक: दूध उबलने से रोकने की ट्रिक!",
-   "caption_en": "Did you know this? Comment YES or NO! Subscribe for daily hacks!",
-   "query": "wiping surface",
+   "dur": 3.33,
+   "narration": "पहले अपनी पसंद की पत्तेदार सब्जियां अच्छी तरह धो लें।",
+   "caption_en": "First, wash your chosen leafy greens thoroughly.",
+   "query": "kitchen counter",
+   "alt": null,
+   "alt2": null
+  },
+  {
+   "i": 4,
+   "dur": 2.44,
+   "narration": "अब एक पेपर टॉवल को हल्का गीला कर लें।",
+   "caption_en": "Now slightly dampen a paper towel.",
+   "query": "placing in fridge",
+   "alt": null,
+   "alt2": null
+  },
+  {
+   "i": 5,
+   "dur": 3.16,
+   "narration": "इस गीले पेपर टॉवल में सब्जियों को अच्छे से लपेट लें।",
+   "caption_en": "Wrap the greens nicely in this damp paper towel.",
+   "query": "refrigerator door",
+   "alt": null,
+   "alt2": null
+  },
+  {
+   "i": 6,
+   "dur": 3.55,
+   "narration": "नमी लॉक होने से पत्तियां सूखती नहीं और क्रिस्पी रहती हैं।",
+   "caption_en": "Locked moisture prevents leaves from drying and keeps them crisp.",
+   "query": "opening fridge",
+   "alt": null,
+   "alt2": null
+  },
+  {
+   "i": 7,
+   "dur": 3.35,
+   "narration": "अब इन्हें फ्रिज में रख दें, सब्जियां बिल्कुल ताज़ा रहेंगी!",
+   "caption_en": "Now put them in the fridge, greens will stay completely fresh!",
+   "query": "taking out greens",
+   "alt": null,
+   "alt2": null
+  },
+  {
+   "i": 8,
+   "dur": 7.73,
+   "narration": "Did you know this? Comment YES or NO! Subscribe to MindFacto, tomorrow: a trick to stop milk from boiling over!",
+   "caption_en": "Did you know this? Comment YES or NO! Subscribe to MindFacto for daily hacks!",
+   "query": "fresh vegetables",
    "alt": null,
    "alt2": null
   }
