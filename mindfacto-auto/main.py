@@ -263,17 +263,24 @@ Return ONLY JSON: {{"hack": "one English sentence describing the hack", "queries
     hack, queries = plan["hack"], [str(q) for q in plan["queries"]][:9]
     print("Hack:", hack, queries)
     TITLE["t"] = hack
-    chosen = []
+    chosen = []; fb = []
     for i, q in enumerate(queries):
         cands = []
         try: cands = [c for c in _pixabay_cands(q, 8) if c["id"] not in {x["id"] for x in chosen if x}]
         except Exception as e: print("pixabay failed:", e)
-        if not cands: chosen.append(None); continue
+        if not cands: chosen.append(None); fb.append(None); continue
+        fb.append(cands[0])
         b = pick_best(f"Shot {i + 1} of a video about: {hack}", q, cands)
         time.sleep(4)
         chosen.append(cands[b] if b >= 0 else None)
         print(f"shot {i}: '{q}' ->", None if b < 0 else cands[b]["id"])
     keep = [(q, c) for q, c in zip(queries, chosen) if c]
+    if len(keep) < 6:  # सख़्त चुनाव में कम पड़ें तो सबसे relevant बाकी क्लिप भरो
+        used = {c["id"] for c in chosen if c}
+        for i, (q, c) in enumerate(zip(queries, chosen)):
+            if not c and fb[i] and fb[i]["id"] not in used and len(keep) < 6:
+                chosen[i] = fb[i]; used.add(fb[i]["id"])
+        keep = [(q, c) for q, c in zip(queries, chosen) if c]
     if len(keep) < 6: raise AssertionError("not enough footage")
     parts = [{"text": f"""You write a viral Hindi YouTube Short (channel MindFacto) about this life hack: {hack}.
 Below are {len(keep)} stock-video thumbnails in story order. For EACH image write the narration that is spoken while that exact shot is on screen. The narration must describe or fit what is truly visible in that image, no contradictions.
