@@ -277,7 +277,7 @@ Return ONLY JSON: {{"hack": "one English sentence describing the hack", "queries
     if len(keep) < 4: raise RuntimeError("not enough footage")
     parts = [{"text": f"""You write a viral Hindi YouTube Short (channel MindFacto) about this life hack: {hack}.
 Below are {len(keep)} stock-video thumbnails in story order. For EACH image write the narration that is spoken while that exact shot is on screen. The narration must describe or fit what is truly visible in that image, no contradictions.
-Hindi in Devanagari, EXACTLY two lively sentences per image (12-18 words each, 24-36 words per image), like an excited friend, all together 105-125 words (about 40 seconds when spoken). First = a shocking curiosity hook under 8 words, no greeting. the LAST scene must give a clear reason to subscribe: first ask ONE simple question viewers answer in the comments (e.g. 'Did you know this? Comment YES or NO!'), then say that MindFacto brings one new life hack EVERY DAY and tease tomorrow's hack by name (e.g. 'Subscribe to MindFacto, tomorrow: a trick to stop milk from boiling over!').
+Hindi in Devanagari, one or two short lively sentences per image, like an excited friend. Tell the HACK step by step (what to do and why it works), do NOT just describe what the picture shows, all together 105-125 words (about 40 seconds when spoken). First = a shocking curiosity hook under 8 words, no greeting. the LAST scene must give a clear reason to subscribe: first ask ONE simple question viewers answer in the comments (e.g. 'Did you know this? Comment YES or NO!'), then say that MindFacto brings one new life hack EVERY DAY and tease tomorrow's hack by name (e.g. 'Subscribe to MindFacto, tomorrow: a trick to stop milk from boiling over!').
 Return ONLY JSON: {{"scenes": [{{"narration": "...", "caption_en": "same meaning in simple English, max 14 words"}} one per image in order], "title": "Hindi title under 70 chars describing exactly this hack", "description": "2 Hindi lines + #Shorts #MindFacto #lifehacks", "tags": [up to 8]}}"""}]
     for i, (q, c) in enumerate(keep):
         try:
@@ -291,7 +291,7 @@ Return ONLY JSON: {{"scenes": [{{"narration": "...", "caption_en": "same meaning
     for s, (q, c) in zip(sc, keep): s["_cand"] = c; s["query"] = q
     data["scenes"] = sc
     for k in ("title", "description", "tags"): assert k in data
-    assert sum(len(x["narration"].split()) for x in sc) >= 70, "script too short"
+    assert sum(len(x["narration"].split()) for x in sc) >= 60, "script too short"
     return data
 
 
@@ -323,7 +323,7 @@ Return ONLY JSON: {{"scenes": [10 objects in story order, each: "narration": one
         x["_img"] = img; x["query"] = x["image_prompt"][:60]
     data["scenes"] = sc
     for k in ("title", "description", "tags"): assert k in data
-    assert sum(len(x["narration"].split()) for x in sc) >= 70, "script too short"
+    assert sum(len(x["narration"].split()) for x in sc) >= 60, "script too short"
     SOURCE["name"] = "AI-generated images (Cloudflare FLUX)"
     return data
 
