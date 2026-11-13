@@ -258,7 +258,7 @@ def footage_first(history):
     """पहले फुटेज चुनो, फिर Gemini उसी फुटेज को देखकर स्क्रिप्ट लिखे -> आवाज़ और विज़ुअल हमेशा मेल खाते हैं।"""
     import base64
     plan = _gemini([{"text": f"""Plan a YouTube Short about ONE safe, useful everyday life hack (topic area: {TOPIC}). ONLY use real, true, widely known and safe hacks; never invent facts or add ingredients that do nothing (no myths). Do NOT repeat: {history[-40:]}.
-Stock-video libraries only have COMMON footage, so the hack must be explainable with common visuals: kitchen, cleaning, water, fruits, vegetables, clothes, plants, phone, hands, tools, home.
+Stock-video libraries only have COMMON footage. Choose ONLY a hack about fruits, vegetables, rice/dal/milk/eggs, lemon, water, washing dishes or clothes, plants, or kitchen cleaning, so every step has a clearly filmable shot. Never choose hacks about price tags, stickers, glue, tools, wires, screws or small objects. Every search phrase must be a very common stock-video subject (e.g. 'lemon', 'pouring water', 'washing hands', 'cutting vegetables').
 Return ONLY JSON: {{"hack": "one English sentence describing the hack", "queries": [9 different stock-video search phrases, 1-3 plain English words each, each a common visible object or action that fits the hack in story order]}}"""}])
     hack, queries = plan["hack"], [str(q) for q in plan["queries"]][:9]
     print("Hack:", hack, queries)
@@ -274,7 +274,7 @@ Return ONLY JSON: {{"hack": "one English sentence describing the hack", "queries
         chosen.append(cands[b] if b >= 0 else None)
         print(f"shot {i}: '{q}' ->", None if b < 0 else cands[b]["id"])
     keep = [(q, c) for q, c in zip(queries, chosen) if c]
-    if len(keep) < 4: raise RuntimeError("not enough footage")
+    if len(keep) < 6: raise AssertionError("not enough footage")
     parts = [{"text": f"""You write a viral Hindi YouTube Short (channel MindFacto) about this life hack: {hack}.
 Below are {len(keep)} stock-video thumbnails in story order. For EACH image write the narration that is spoken while that exact shot is on screen. The narration must describe or fit what is truly visible in that image, no contradictions.
 Hindi in Devanagari, one or two short lively sentences per image, like an excited friend. Tell the HACK step by step (what to do and why it works), do NOT just describe what the picture shows, all together 105-125 words (about 40 seconds when spoken). First = a shocking curiosity hook under 8 words, no greeting. the LAST scene must give a clear reason to subscribe: first ask ONE simple question viewers answer in the comments (e.g. 'Did you know this? Comment YES or NO!'), then say that MindFacto brings one new life hack EVERY DAY and tease tomorrow's hack by name (e.g. 'Subscribe to MindFacto, tomorrow: a trick to stop milk from boiling over!').
@@ -291,7 +291,7 @@ Return ONLY JSON: {{"scenes": [{{"narration": "...", "caption_en": "same meaning
     for s, (q, c) in zip(sc, keep): s["_cand"] = c; s["query"] = q
     data["scenes"] = sc
     for k in ("title", "description", "tags"): assert k in data
-    assert sum(len(x["narration"].split()) for x in sc) >= 60, "script too short"
+    assert sum(len(x["narration"].split()) for x in sc) >= 75, "script too short"
     return data
 
 
@@ -323,7 +323,7 @@ Return ONLY JSON: {{"scenes": [10 objects in story order, each: "narration": one
         x["_img"] = img; x["query"] = x["image_prompt"][:60]
     data["scenes"] = sc
     for k in ("title", "description", "tags"): assert k in data
-    assert sum(len(x["narration"].split()) for x in sc) >= 60, "script too short"
+    assert sum(len(x["narration"].split()) for x in sc) >= 75, "script too short"
     SOURCE["name"] = "AI-generated images (Cloudflare FLUX)"
     return data
 
