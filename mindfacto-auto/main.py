@@ -112,13 +112,18 @@ def _tts_gemini(text, dst):
 
 
 async def _tts_edge(texts, paths):
-    import edge_tts
+    import edge_tts, re
+    variants = [dict(voice=VOICE, rate=RATE, pitch=PITCH), dict(voice=VOICE, rate=RATE), dict(voice=VOICE),
+                dict(voice="hi-IN-SwaraNeural", rate=RATE), dict(voice="hi-IN-SwaraNeural"), dict(voice=VOICE, rate="+10%")]
     for t, p in zip(texts, paths):
-        for attempt in range(3):
+        t = re.sub(r"[#*_~`|<>\[\]{}\"\u201c\u201d]|[\U00010000-\U0010ffff]", " ", t).strip() or "."
+        for v in variants:
             try:
-                await edge_tts.Communicate(t, VOICE, rate=RATE, pitch=PITCH).save(str(p)); break
+                kw = dict(v); voice = kw.pop("voice")
+                await edge_tts.Communicate(t, voice, **kw).save(str(p))
+                if Path(p).exists() and Path(p).stat().st_size > 800: break
             except Exception as e:
-                print("TTS retry:", e); await asyncio.sleep(3)
+                print("TTS retry:", v.get("voice"), e); await asyncio.sleep(2)
         else:
             raise SystemExit("आवाज़ नहीं बन पाई")
 
