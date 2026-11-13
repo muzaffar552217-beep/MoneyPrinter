@@ -1,70 +1,70 @@
 {
- "title": "आलू को लंबे समय तक ताजा रखने का जादुई सेब वाला तरीका",
+ "title": "पेन की स्प्रिंग से बचाएं अपना महंगा चार्जर",
  "voice_engine": "edge-tts (hi-IN-MadhurNeural)",
  "footage": "Pixabay",
  "scenes": [
   {
    "i": 0,
-   "dur": 3.48,
-   "narration": "क्या आपके आलू भी जल्दी उग जाते हैं और खराब हो जाते हैं?",
-   "caption_en": "Do your potatoes sprout quickly and go bad?",
-   "query": "raw potatoes",
-   "alt": "potato",
-   "alt2": "kitchen"
+   "dur": 4.24,
+   "narration": "अरे यार, क्या आपके फोन का चार्जर भी बार-बार मुड़कर बीच से टूट जाता है?",
+   "caption_en": "Does your phone charger cable always bend and break in the middle?",
+   "query": "broken cable",
+   "alt": "charger",
+   "alt2": "phone"
   },
   {
    "i": 1,
-   "dur": 3.1,
-   "narration": "बस किचन बास्केट में आलू के साथ एक सेब रख दें!",
-   "caption_en": "Just keep an apple with potatoes in the basket!",
-   "query": "apple in basket",
-   "alt": "potato",
-   "alt2": "kitchen"
+   "dur": 2.63,
+   "narration": "इसे बचाने का एक गजब का जुगाड़ बताता हूँ!",
+   "caption_en": "Let me tell you an amazing trick to save it!",
+   "query": "holding pen",
+   "alt": "charger",
+   "alt2": "hands"
   },
   {
    "i": 2,
-   "dur": 3.63,
-   "narration": "जी हां, सेब से निकलने वाली गैस आलू को उगने से रोकती है!",
-   "caption_en": "Yes, gas from the apple stops potatoes from sprouting!",
-   "query": "fresh apple",
-   "alt": "potato",
-   "alt2": "kitchen"
+   "dur": 3.41,
+   "narration": "बस एक पुराना पेन लो और उसकी स्प्रिंग निकाल बाहर करो!",
+   "caption_en": "Just take an old pen and take out its spring!",
+   "query": "pen spring",
+   "alt": "charger",
+   "alt2": "stationery"
   },
   {
    "i": 3,
-   "dur": 3.37,
-   "narration": "इससे आपके आलू हफ्तों तक बिल्कुल ताजे और कड़े रहेंगे।",
-   "caption_en": "This keeps your potatoes fresh and firm for weeks.",
-   "query": "fresh potatoes",
-   "alt": "potato",
-   "alt2": "kitchen"
+   "dur": 3.81,
+   "narration": "अब इस स्प्रिंग को थोड़ा फैलाकर चार्जर के दोनों सिरों पर लपेट दो!",
+   "caption_en": "Now stretch this spring slightly and wrap it around both ends of the charger!",
+   "query": "wrapping spring",
+   "alt": "charger",
+   "alt2": "repair"
   },
   {
    "i": 4,
-   "dur": 3.64,
-   "narration": "एक छोटा सा सेब बचाएगा आपके ढेर सारे पैसे और मेहनत!",
-   "caption_en": "One small apple will save you lots of money!",
-   "query": "holding apple",
-   "alt": "potato",
-   "alt2": "kitchen"
+   "dur": 4.62,
+   "narration": "बस हो गया काम! अब केबल कभी नहीं मुड़ेगी और सालो-साल चलेगी।",
+   "caption_en": "Done! Now the cable will never bend and will last for years.",
+   "query": "charging cable",
+   "alt": "charger",
+   "alt2": "tech"
   },
   {
    "i": 5,
-   "dur": 2.67,
-   "narration": "है ना कमाल का और आसान किचन का देसी जुगाड़?",
-   "caption_en": "Isn't this an amazing and easy kitchen trick?",
-   "query": "vegetable basket",
-   "alt": "potato",
-   "alt2": "kitchen"
+   "dur": 2.57,
+   "narration": "है ना एकदम मस्त और बिना पैसे वाला जुगाड़?",
+   "caption_en": "Isn't this an awesome and completely free trick?",
+   "query": "plugging charger",
+   "alt": "charger",
+   "alt2": "socket"
   },
   {
    "i": 6,
-   "dur": 3.36,
-   "narration": "ऐसी ही गजब की टिप्स के लिए अभी माइंडफैक्टो को फॉलो करो!",
-   "caption_en": "Follow MindFacto right now for more amazing tips!",
-   "query": "fresh vegetables",
-   "alt": "potato",
-   "alt2": "kitchen"
+   "dur": 3.27,
+   "narration": "ऐसी ही काम की टिप्स के लिए MindFacto को अभी फॉलो करो!",
+   "caption_en": "Follow MindFacto right now for more useful tips like this!",
+   "query": "smartphone",
+   "alt": "charger",
+   "alt2": "phone"
   }
  ]
 }
