@@ -1,59 +1,41 @@
 {
- "title": "जार से स्टीकर हटाने का आसान घरेलू तरीका",
+ "title": "Remove Price Tag Residue Instantly with Cooking Oil",
  "voice_engine": "edge-tts (hi-IN-MadhurNeural)",
  "footage": "Pixabay",
  "scenes": [
   {
    "i": 0,
-   "dur": 3.45,
-   "narration": "जार पर लगा जिद्दी स्टीकर! इसे कैसे हटाएं?",
-   "caption_en": "Stubborn sticker on the jar! How to remove it?",
-   "query": "glass jar",
+   "dur": 2.44,
+   "narration": "प्राइस टैग का जिद्दी गोंद परेशान कर रहा है?",
+   "caption_en": "Struggling with sticky price tag residue?",
+   "query": "price tag",
    "alt": null,
    "alt2": null
   },
   {
    "i": 1,
-   "dur": 3.52,
-   "narration": "गर्म पैन में मक्खन पिघल रहा है, ध्यान से देखिए यह कमाल!",
-   "caption_en": "Butter melting in a hot pan, watch this magic!",
-   "query": "cooking oil",
-   "alt": null,
-   "alt2": null
-  },
-  {
-   "i": 2,
-   "dur": 3.06,
-   "narration": "टिशू पेपर से कांच साफ करने का सही तरीका सीखें।",
-   "caption_en": "Learn the right way to clean glass with tissue paper.",
-   "query": "paper towel",
-   "alt": null,
-   "alt2": null
-  },
-  {
-   "i": 3,
-   "dur": 3.03,
-   "narration": "काले पैन में थोड़ा सा तेल डालकर फैलाया जा रहा है।",
-   "caption_en": "A little oil is poured and spread in a black pan.",
+   "dur": 3.45,
+   "narration": "बस कुछ बूंदें कुकिंग ऑयल की लगाएं और दो मिनट छोड़ दें!",
+   "caption_en": "Apply a few drops of cooking oil and wait two minutes!",
    "query": "pouring oil",
    "alt": null,
    "alt2": null
   },
   {
-   "i": 4,
-   "dur": 2.66,
-   "narration": "कांच के गिलास में पानी तेजी से भरा जा रहा है।",
-   "caption_en": "Water is being poured quickly into a glass.",
-   "query": "rubbing glass",
+   "i": 2,
+   "dur": 3.75,
+   "narration": "तेल गोंद को तोड़ देता है जिससे वह आसानी से निकल जाता है।",
+   "caption_en": "Oil breaks down the adhesive for easy removal.",
+   "query": "rubbing hands",
    "alt": null,
    "alt2": null
   },
   {
-   "i": 5,
-   "dur": 7.59,
-   "narration": "क्या यह ट्रिक पता थी? कमेंट में हाँ कहें! MindFacto को सब्सक्राइब करें, कल: दूध उबलने से रोकने की ट्रिक!",
-   "caption_en": "Did you know this trick? Comment YES! Subscribe to MindFacto, tomorrow: stop milk boiling over!",
-   "query": "wiping adhesive",
+   "i": 3,
+   "dur": 9.75,
+   "narration": "क्या आप यह जानते थे? कमेंट में हाँ या ना बताएं! MindFacto हर दिन एक नया लाइफ हैक लाता है, कल का हैक: दूध उबलने से रोकने की ट्रिक!",
+   "caption_en": "Did you know this? Comment YES or NO! Subscribe for daily hacks!",
+   "query": "wiping surface",
    "alt": null,
    "alt2": null
   }
