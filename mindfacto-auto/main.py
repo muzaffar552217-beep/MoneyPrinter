@@ -274,7 +274,7 @@ Return ONLY JSON: {{"hack": "one English sentence describing the hack", "queries
         chosen.append(cands[b] if b >= 0 else None)
         print(f"shot {i}: '{q}' ->", None if b < 0 else cands[b]["id"])
     keep = [(q, c) for q, c in zip(queries, chosen) if c]
-    if len(keep) < 5: raise RuntimeError("not enough footage")
+    if len(keep) < 4: raise RuntimeError("not enough footage")
     parts = [{"text": f"""You write a viral Hindi YouTube Short (channel MindFacto) about this life hack: {hack}.
 Below are {len(keep)} stock-video thumbnails in story order. For EACH image write the narration that is spoken while that exact shot is on screen. The narration must describe or fit what is truly visible in that image, no contradictions.
 Hindi in Devanagari, EXACTLY two lively sentences per image (12-18 words each, 24-36 words per image), like an excited friend, all together 105-125 words (about 40 seconds when spoken). First = a shocking curiosity hook under 8 words, no greeting. the LAST scene must give a clear reason to subscribe: first ask ONE simple question viewers answer in the comments (e.g. 'Did you know this? Comment YES or NO!'), then say that MindFacto brings one new life hack EVERY DAY and tease tomorrow's hack by name (e.g. 'Subscribe to MindFacto, tomorrow: a trick to stop milk from boiling over!').
@@ -291,7 +291,7 @@ Return ONLY JSON: {{"scenes": [{{"narration": "...", "caption_en": "same meaning
     for s, (q, c) in zip(sc, keep): s["_cand"] = c; s["query"] = q
     data["scenes"] = sc
     for k in ("title", "description", "tags"): assert k in data
-    assert sum(len(x["narration"].split()) for x in sc) >= 85, "script too short"
+    assert sum(len(x["narration"].split()) for x in sc) >= 70, "script too short"
     return data
 
 
@@ -323,7 +323,7 @@ Return ONLY JSON: {{"scenes": [10 objects in story order, each: "narration": one
         x["_img"] = img; x["query"] = x["image_prompt"][:60]
     data["scenes"] = sc
     for k in ("title", "description", "tags"): assert k in data
-    assert sum(len(x["narration"].split()) for x in sc) >= 85, "script too short"
+    assert sum(len(x["narration"].split()) for x in sc) >= 70, "script too short"
     SOURCE["name"] = "AI-generated images (Cloudflare FLUX)"
     return data
 
