@@ -121,7 +121,7 @@ async def _tts_edge(texts, paths):
             try:
                 kw = dict(v); voice = kw.pop("voice")
                 await edge_tts.Communicate(t, voice, **kw).save(str(p))
-                if Path(p).exists() and Path(p).stat().st_size > 800: break
+                if pathlib.Path(p).exists() and pathlib.Path(p).stat().st_size > 800: break
             except Exception as e:
                 print("TTS retry:", v.get("voice"), e); await asyncio.sleep(2)
         else:
