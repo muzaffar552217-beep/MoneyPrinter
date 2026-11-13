@@ -1,70 +1,61 @@
 {
- "title": "हैंगर पर फिसलते हैं कपड़े? अपनाएं यह रबड़ बैंड वाला गजब का जुगाड़!",
+ "title": "जार से स्टीकर हटाने का आसान घरेलू तरीका",
  "voice_engine": "edge-tts (hi-IN-MadhurNeural)",
  "footage": "Pixabay",
  "scenes": [
   {
    "i": 0,
-   "dur": 3.05,
-   "narration": "क्या आपके नए कपड़े भी कवर्ड में फिसलकर गिर जाते हैं?",
-   "caption_en": "Do your new clothes keep slipping off the hangers?",
-   "query": "clothes hangers",
-   "alt": "rubber bands",
-   "alt2": "wardrobe"
+   "dur": 3.45,
+   "narration": "जार पर लगा जिद्दी स्टीकर! इसे कैसे हटाएं?",
+   "caption_en": "Stubborn sticker on the jar! How to remove it?",
+   "query": "glass jar",
+   "alt": null,
+   "alt2": null
   },
   {
    "i": 1,
-   "dur": 2.28,
-   "narration": "पैसे और टाइम दोनों बर्बाद होते हैं ना?",
-   "caption_en": "It wastes both your time and money, right?",
-   "query": "messy wardrobe",
-   "alt": "rubber bands",
-   "alt2": "wardrobe"
+   "dur": 3.52,
+   "narration": "गर्म पैन में मक्खन पिघल रहा है, ध्यान से देखिए यह कमाल!",
+   "caption_en": "Butter melting in a hot pan, watch this magic!",
+   "query": "cooking oil",
+   "alt": null,
+   "alt2": null
   },
   {
    "i": 2,
-   "dur": 2.1,
-   "narration": "बस घर में रखी दो रबड़ बैंड ले लो!",
-   "caption_en": "Just grab two ordinary rubber bands from home!",
-   "query": "rubber bands",
-   "alt": "rubber bands",
-   "alt2": "wardrobe"
+   "dur": 3.06,
+   "narration": "टिशू पेपर से कांच साफ करने का सही तरीका सीखें।",
+   "caption_en": "Learn the right way to clean glass with tissue paper.",
+   "query": "paper towel",
+   "alt": null,
+   "alt2": null
   },
   {
    "i": 3,
-   "dur": 2.48,
-   "narration": "इसे हैंगर के दोनों सिरों पर ऐसे लपेट दो।",
-   "caption_en": "Wrap them tightly around both ends of the hanger.",
-   "query": "wrapping rubber band",
-   "alt": "rubber bands",
-   "alt2": "wardrobe"
+   "dur": 3.03,
+   "narration": "काले पैन में थोड़ा सा तेल डालकर फैलाया जा रहा है।",
+   "caption_en": "A little oil is poured and spread in a black pan.",
+   "query": "pouring oil",
+   "alt": null,
+   "alt2": null
   },
   {
    "i": 4,
-   "dur": 2.35,
-   "narration": "अब इस पर सिल्क या साटन की ड्रेस टांगो।",
-   "caption_en": "Now hang your silk or satin dress on it.",
-   "query": "hanging dress",
-   "alt": "rubber bands",
-   "alt2": "wardrobe"
+   "dur": 2.66,
+   "narration": "कांच के गिलास में पानी तेजी से भरा जा रहा है।",
+   "caption_en": "Water is being poured quickly into a glass.",
+   "query": "rubbing glass",
+   "alt": null,
+   "alt2": null
   },
   {
    "i": 5,
-   "dur": 3.13,
-   "narration": "गारंटी है, कपड़ा अपनी जगह से हिलने तक नहीं वाला!",
-   "caption_en": "Guaranteed, the clothes will not slip off at all!",
-   "query": "organized closet",
-   "alt": "rubber bands",
-   "alt2": "wardrobe"
-  },
-  {
-   "i": 6,
-   "dur": 3.22,
-   "narration": "है ना कमाल का जुगाड़? जल्दी से फॉलो करो!",
-   "caption_en": "Isn't this amazing? Follow us right now!",
-   "query": "clothing rack",
-   "alt": "rubber bands",
-   "alt2": "wardrobe"
+   "dur": 7.59,
+   "narration": "क्या यह ट्रिक पता थी? कमेंट में हाँ कहें! MindFacto को सब्सक्राइब करें, कल: दूध उबलने से रोकने की ट्रिक!",
+   "caption_en": "Did you know this trick? Comment YES! Subscribe to MindFacto, tomorrow: stop milk boiling over!",
+   "query": "wiping adhesive",
+   "alt": null,
+   "alt2": null
   }
  ]
 }
