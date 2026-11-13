@@ -1,70 +1,70 @@
 {
- "title": "पेन की स्प्रिंग से बचाएं अपना महंगा चार्जर",
+ "title": "हैंगर पर फिसलते हैं कपड़े? अपनाएं यह रबड़ बैंड वाला गजब का जुगाड़!",
  "voice_engine": "edge-tts (hi-IN-MadhurNeural)",
  "footage": "Pixabay",
  "scenes": [
   {
    "i": 0,
-   "dur": 4.24,
-   "narration": "अरे यार, क्या आपके फोन का चार्जर भी बार-बार मुड़कर बीच से टूट जाता है?",
-   "caption_en": "Does your phone charger cable always bend and break in the middle?",
-   "query": "broken cable",
-   "alt": "charger",
-   "alt2": "phone"
+   "dur": 3.05,
+   "narration": "क्या आपके नए कपड़े भी कवर्ड में फिसलकर गिर जाते हैं?",
+   "caption_en": "Do your new clothes keep slipping off the hangers?",
+   "query": "clothes hangers",
+   "alt": "rubber bands",
+   "alt2": "wardrobe"
   },
   {
    "i": 1,
-   "dur": 2.63,
-   "narration": "इसे बचाने का एक गजब का जुगाड़ बताता हूँ!",
-   "caption_en": "Let me tell you an amazing trick to save it!",
-   "query": "holding pen",
-   "alt": "charger",
-   "alt2": "hands"
+   "dur": 2.28,
+   "narration": "पैसे और टाइम दोनों बर्बाद होते हैं ना?",
+   "caption_en": "It wastes both your time and money, right?",
+   "query": "messy wardrobe",
+   "alt": "rubber bands",
+   "alt2": "wardrobe"
   },
   {
    "i": 2,
-   "dur": 3.41,
-   "narration": "बस एक पुराना पेन लो और उसकी स्प्रिंग निकाल बाहर करो!",
-   "caption_en": "Just take an old pen and take out its spring!",
-   "query": "pen spring",
-   "alt": "charger",
-   "alt2": "stationery"
+   "dur": 2.1,
+   "narration": "बस घर में रखी दो रबड़ बैंड ले लो!",
+   "caption_en": "Just grab two ordinary rubber bands from home!",
+   "query": "rubber bands",
+   "alt": "rubber bands",
+   "alt2": "wardrobe"
   },
   {
    "i": 3,
-   "dur": 3.81,
-   "narration": "अब इस स्प्रिंग को थोड़ा फैलाकर चार्जर के दोनों सिरों पर लपेट दो!",
-   "caption_en": "Now stretch this spring slightly and wrap it around both ends of the charger!",
-   "query": "wrapping spring",
-   "alt": "charger",
-   "alt2": "repair"
+   "dur": 2.48,
+   "narration": "इसे हैंगर के दोनों सिरों पर ऐसे लपेट दो।",
+   "caption_en": "Wrap them tightly around both ends of the hanger.",
+   "query": "wrapping rubber band",
+   "alt": "rubber bands",
+   "alt2": "wardrobe"
   },
   {
    "i": 4,
-   "dur": 4.62,
-   "narration": "बस हो गया काम! अब केबल कभी नहीं मुड़ेगी और सालो-साल चलेगी।",
-   "caption_en": "Done! Now the cable will never bend and will last for years.",
-   "query": "charging cable",
-   "alt": "charger",
-   "alt2": "tech"
+   "dur": 2.35,
+   "narration": "अब इस पर सिल्क या साटन की ड्रेस टांगो।",
+   "caption_en": "Now hang your silk or satin dress on it.",
+   "query": "hanging dress",
+   "alt": "rubber bands",
+   "alt2": "wardrobe"
   },
   {
    "i": 5,
-   "dur": 2.57,
-   "narration": "है ना एकदम मस्त और बिना पैसे वाला जुगाड़?",
-   "caption_en": "Isn't this an awesome and completely free trick?",
-   "query": "plugging charger",
-   "alt": "charger",
-   "alt2": "socket"
+   "dur": 3.13,
+   "narration": "गारंटी है, कपड़ा अपनी जगह से हिलने तक नहीं वाला!",
+   "caption_en": "Guaranteed, the clothes will not slip off at all!",
+   "query": "organized closet",
+   "alt": "rubber bands",
+   "alt2": "wardrobe"
   },
   {
    "i": 6,
-   "dur": 3.27,
-   "narration": "ऐसी ही काम की टिप्स के लिए MindFacto को अभी फॉलो करो!",
-   "caption_en": "Follow MindFacto right now for more useful tips like this!",
-   "query": "smartphone",
-   "alt": "charger",
-   "alt2": "phone"
+   "dur": 3.22,
+   "narration": "है ना कमाल का जुगाड़? जल्दी से फॉलो करो!",
+   "caption_en": "Isn't this amazing? Follow us right now!",
+   "query": "clothing rack",
+   "alt": "rubber bands",
+   "alt2": "wardrobe"
   }
  ]
 }
