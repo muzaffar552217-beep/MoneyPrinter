@@ -275,13 +275,13 @@ Return ONLY JSON: {{"hack": "one English sentence describing the hack", "queries
         chosen.append(cands[b] if b >= 0 else None)
         print(f"shot {i}: '{q}' ->", None if b < 0 else cands[b]["id"])
     keep = [(q, c) for q, c in zip(queries, chosen) if c]
-    if len(keep) < 6:  # सख़्त चुनाव में कम पड़ें तो सबसे relevant बाकी क्लिप भरो
+    if False:  # ग़लत क्लिप भरने से वीडियो ख़राब होती है, इसलिए बंद
         used = {c["id"] for c in chosen if c}
         for i, (q, c) in enumerate(zip(queries, chosen)):
             if not c and fb[i] and fb[i]["id"] not in used and len(keep) < 6:
                 chosen[i] = fb[i]; used.add(fb[i]["id"])
         keep = [(q, c) for q, c in zip(queries, chosen) if c]
-    if len(keep) < 6: raise AssertionError("not enough footage")
+    if len(keep) < 5: raise AssertionError("not enough footage")
     parts = [{"text": f"""You write a viral Hindi YouTube Short (channel MindFacto) about this life hack: {hack}.
 Below are {len(keep)} stock-video thumbnails in story order. For EACH image write the narration that is spoken while that exact shot is on screen. The narration must describe or fit what is truly visible in that image, no contradictions.
 Hindi in Devanagari, one or two short lively sentences per image, like an excited friend. Tell the HACK step by step (what to do and why it works), do NOT just describe what the picture shows, all together 105-125 words (about 40 seconds when spoken). First = a shocking curiosity hook under 8 words, no greeting. the LAST scene must give a clear reason to subscribe: first ask ONE simple question viewers answer in the comments (e.g. 'Did you know this? Comment YES or NO!'), then say that MindFacto brings one new life hack EVERY DAY and tease tomorrow's hack by name (e.g. 'Subscribe to MindFacto, tomorrow: a trick to stop milk from boiling over!').
@@ -505,7 +505,7 @@ def main():
         if meta: pass
         elif not os.getenv("PIXABAY_API_KEY"): raise RuntimeError("no pixabay")
         else:
-            for _try in range(3):
+            for _try in range(5):
                 try: meta = footage_first(hist); break
                 except AssertionError as e: print("retry:", e)
             if not meta: raise RuntimeError("footage-first retries failed")
