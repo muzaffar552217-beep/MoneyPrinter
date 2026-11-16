@@ -1,86 +1,68 @@
 {
- "title": "Keep Leafy Greens Fresh Longer With Damp Paper Towel Hack",
+ "title": "सेब को काला होने से कैसे रोकें | Apple BROWNING Life Hack",
  "voice_engine": "edge-tts (hi-IN-MadhurNeural)",
  "footage": "Pixabay",
  "scenes": [
   {
    "i": 0,
    "dur": 1.61,
-   "narration": "पत्तियां ताज़ा रखने का मैजिक!",
-   "caption_en": "Magic to keep leaves fresh!",
-   "query": "fresh spinach",
+   "narration": "कटे सेब काले क्यों होते हैं?",
+   "caption_en": "Why do sliced apples turn black?",
+   "query": "cutting apple",
    "alt": null,
    "alt2": null
   },
   {
    "i": 1,
-   "dur": 2.65,
-   "narration": "क्या आपकी हरी सब्जियां जल्दी खराब हो जाती हैं?",
-   "caption_en": "Do your leafy greens spoil quickly?",
-   "query": "wet paper towel",
+   "dur": 3.23,
+   "narration": "इसके लिए आपको चाहिए बस थोड़ा सा ताज़ा नींबू का रस!",
+   "caption_en": "For this you just need a little fresh lemon juice!",
+   "query": "lemon juice",
    "alt": null,
    "alt2": null
   },
   {
    "i": 2,
-   "dur": 2.85,
-   "narration": "अब इन्हें हफ्तों तक ताज़ा रखना बेहद आसान है।",
-   "caption_en": "Now it's very easy to keep them fresh for weeks.",
-   "query": "wrapping leaves",
+   "dur": 2.72,
+   "narration": "अब एक कटोरी में थोड़ा ठंडा पानी भर लीजिए।",
+   "caption_en": "Now fill a bowl with some cold water.",
+   "query": "pouring water",
    "alt": null,
    "alt2": null
   },
   {
    "i": 3,
-   "dur": 3.33,
-   "narration": "पहले अपनी पसंद की पत्तेदार सब्जियां अच्छी तरह धो लें।",
-   "caption_en": "First, wash your chosen leafy greens thoroughly.",
-   "query": "kitchen counter",
+   "dur": 3.02,
+   "narration": "नींबू के रस को इस ठंडे पानी में अच्छे से मिला दें।",
+   "caption_en": "Mix the lemon juice well into this cold water.",
+   "query": "apple slices",
    "alt": null,
    "alt2": null
   },
   {
    "i": 4,
-   "dur": 2.44,
-   "narration": "अब एक पेपर टॉवल को हल्का गीला कर लें।",
-   "caption_en": "Now slightly dampen a paper towel.",
-   "query": "placing in fridge",
+   "dur": 3.21,
+   "narration": "अब कटे हुए सेब के टुकड़ों को इस पानी में थोड़ा डुबोएं।",
+   "caption_en": "Now dip the sliced apple pieces briefly in this water.",
+   "query": "stirring water",
    "alt": null,
    "alt2": null
   },
   {
    "i": 5,
-   "dur": 3.16,
-   "narration": "इस गीले पेपर टॉवल में सब्जियों को अच्छे से लपेट लें।",
-   "caption_en": "Wrap the greens nicely in this damp paper towel.",
-   "query": "refrigerator door",
+   "dur": 4.22,
+   "narration": "नींबू का एसिड ऑक्सीडेशन रोकता है और सेब बिल्कुल सफेद रहते हैं!",
+   "caption_en": "Lemon acid stops oxidation and apples stay completely white!",
+   "query": "soaking fruit",
    "alt": null,
    "alt2": null
   },
   {
    "i": 6,
-   "dur": 3.55,
-   "narration": "नमी लॉक होने से पत्तियां सूखती नहीं और क्रिस्पी रहती हैं।",
-   "caption_en": "Locked moisture prevents leaves from drying and keeps them crisp.",
-   "query": "opening fridge",
-   "alt": null,
-   "alt2": null
-  },
-  {
-   "i": 7,
-   "dur": 3.35,
-   "narration": "अब इन्हें फ्रिज में रख दें, सब्जियां बिल्कुल ताज़ा रहेंगी!",
-   "caption_en": "Now put them in the fridge, greens will stay completely fresh!",
-   "query": "taking out greens",
-   "alt": null,
-   "alt2": null
-  },
-  {
-   "i": 8,
    "dur": 7.73,
    "narration": "Did you know this? Comment YES or NO! Subscribe to MindFacto, tomorrow: a trick to stop milk from boiling over!",
-   "caption_en": "Did you know this? Comment YES or NO! Subscribe to MindFacto for daily hacks!",
-   "query": "fresh vegetables",
+   "caption_en": "Did you know this? Comment YES or NO! Subscribe for tomorrow's milk boiling hack!",
+   "query": "fresh apple",
    "alt": null,
    "alt2": null
   }
