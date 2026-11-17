@@ -1,68 +1,50 @@
 {
- "title": "सेब को काला होने से कैसे रोकें | Apple BROWNING Life Hack",
+ "title": "आलू को काला होने से कैसे बचाएं - शानदार लाइफ हैक",
  "voice_engine": "edge-tts (hi-IN-MadhurNeural)",
  "footage": "Pixabay",
  "scenes": [
   {
    "i": 0,
-   "dur": 1.61,
-   "narration": "कटे सेब काले क्यों होते हैं?",
-   "caption_en": "Why do sliced apples turn black?",
-   "query": "cutting apple",
+   "dur": 2.05,
+   "narration": "कटी हुई सब्ज़ियाँ क्यों काली पड़ती हैं?",
+   "caption_en": "Why do chopped veggies turn black?",
+   "query": "cutting vegetables",
    "alt": null,
    "alt2": null
   },
   {
    "i": 1,
-   "dur": 3.23,
-   "narration": "इसके लिए आपको चाहिए बस थोड़ा सा ताज़ा नींबू का रस!",
-   "caption_en": "For this you just need a little fresh lemon juice!",
-   "query": "lemon juice",
-   "alt": null,
-   "alt2": null
-  },
-  {
-   "i": 2,
-   "dur": 2.72,
-   "narration": "अब एक कटोरी में थोड़ा ठंडा पानी भर लीजिए।",
-   "caption_en": "Now fill a bowl with some cold water.",
+   "dur": 3.26,
+   "narration": "ऑक्सीजन के संपर्क में आते ही ये बदरंग होने लगती हैं!",
+   "caption_en": "They discolor as soon as they meet oxygen!",
    "query": "pouring water",
    "alt": null,
    "alt2": null
   },
   {
+   "i": 2,
+   "dur": 2.9,
+   "narration": "टुकड़ों को काटने के तुरंत बाद एक कटोरे में रखें।",
+   "caption_en": "Place the pieces in a bowl right after cutting.",
+   "query": "kitchen counter",
+   "alt": null,
+   "alt2": null
+  },
+  {
    "i": 3,
-   "dur": 3.02,
-   "narration": "नींबू के रस को इस ठंडे पानी में अच्छे से मिला दें।",
-   "caption_en": "Mix the lemon juice well into this cold water.",
-   "query": "apple slices",
+   "dur": 2.96,
+   "narration": "अब इन्हें पूरी तरह से साफ़ ताज़े पानी में डुबो दें।",
+   "caption_en": "Now submerge them completely in fresh water.",
+   "query": "kitchen sink",
    "alt": null,
    "alt2": null
   },
   {
    "i": 4,
-   "dur": 3.21,
-   "narration": "अब कटे हुए सेब के टुकड़ों को इस पानी में थोड़ा डुबोएं।",
-   "caption_en": "Now dip the sliced apple pieces briefly in this water.",
-   "query": "stirring water",
-   "alt": null,
-   "alt2": null
-  },
-  {
-   "i": 5,
-   "dur": 4.22,
-   "narration": "नींबू का एसिड ऑक्सीडेशन रोकता है और सेब बिल्कुल सफेद रहते हैं!",
-   "caption_en": "Lemon acid stops oxidation and apples stay completely white!",
-   "query": "soaking fruit",
-   "alt": null,
-   "alt2": null
-  },
-  {
-   "i": 6,
-   "dur": 7.73,
-   "narration": "Did you know this? Comment YES or NO! Subscribe to MindFacto, tomorrow: a trick to stop milk from boiling over!",
-   "caption_en": "Did you know this? Comment YES or NO! Subscribe for tomorrow's milk boiling hack!",
-   "query": "fresh apple",
+   "dur": 13.48,
+   "narration": "पानी ऑक्सीजन को रोकता है जिससे रंग नहीं बदलता! क्या आप यह जानते थे? हाँ या ना में कमेंट करें! MindFacto हर दिन एक नया लाइफ हैक लाता है, कल देखिए: दूध उफनने से रोकने की ट्रिक!",
+   "caption_en": "Water blocks oxygen preventing discoloration! Did you know this? Comment YES or NO! MindFacto brings a hack daily, tomorrow: stop milk boiling over!",
+   "query": "fresh water",
    "alt": null,
    "alt2": null
   }
