@@ -1,50 +1,59 @@
 {
- "title": "आलू को काला होने से कैसे बचाएं - शानदार लाइफ हैक",
+ "title": "Green Leafy Vegetables Freshness Life Hack | MindFacto #Shorts",
  "voice_engine": "edge-tts (hi-IN-MadhurNeural)",
  "footage": "Pixabay",
  "scenes": [
   {
    "i": 0,
-   "dur": 2.05,
-   "narration": "कटी हुई सब्ज़ियाँ क्यों काली पड़ती हैं?",
-   "caption_en": "Why do chopped veggies turn black?",
-   "query": "cutting vegetables",
-   "alt": null,
-   "alt2": null
-  },
-  {
-   "i": 1,
-   "dur": 3.26,
-   "narration": "ऑक्सीजन के संपर्क में आते ही ये बदरंग होने लगती हैं!",
-   "caption_en": "They discolor as soon as they meet oxygen!",
+   "dur": 3.83,
+   "narration": "सब्जियां सड़ने से रोकें! (Stop veggies from rotting!)",
+   "caption_en": "Stop veggies from rotting fast!",
    "query": "pouring water",
    "alt": null,
    "alt2": null
   },
   {
+   "i": 1,
+   "dur": 7.55,
+   "narration": "एक पेपर टॉवल लें और उसे थोड़े पानी से गीला कर लें। (Take a paper towel and slightly dampen it with water.)",
+   "caption_en": "Take a paper towel and make it slightly damp with water.",
+   "query": "squeezing towel",
+   "alt": null,
+   "alt2": null
+  },
+  {
    "i": 2,
-   "dur": 2.9,
-   "narration": "टुकड़ों को काटने के तुरंत बाद एक कटोरे में रखें।",
-   "caption_en": "Place the pieces in a bowl right after cutting.",
-   "query": "kitchen counter",
+   "dur": 6.6,
+   "narration": "अब हरी पत्तियों को इस गीले टॉवल में लपेट दें। (Now wrap your leafy greens inside this damp towel.)",
+   "caption_en": "Now wrap your leafy greens inside this damp paper towel.",
+   "query": "refrigerator shelf",
    "alt": null,
    "alt2": null
   },
   {
    "i": 3,
-   "dur": 2.96,
-   "narration": "अब इन्हें पूरी तरह से साफ़ ताज़े पानी में डुबो दें।",
-   "caption_en": "Now submerge them completely in fresh water.",
-   "query": "kitchen sink",
+   "dur": 5.68,
+   "narration": "फिर इसे फ्रिज में रख दें ताकि नमी बनी रहे! (Then place it in the fridge to lock in moisture!)",
+   "caption_en": "Then put it in the fridge so moisture stays locked in!",
+   "query": "opening fridge",
    "alt": null,
    "alt2": null
   },
   {
    "i": 4,
-   "dur": 13.48,
-   "narration": "पानी ऑक्सीजन को रोकता है जिससे रंग नहीं बदलता! क्या आप यह जानते थे? हाँ या ना में कमेंट करें! MindFacto हर दिन एक नया लाइफ हैक लाता है, कल देखिए: दूध उफनने से रोकने की ट्रिक!",
-   "caption_en": "Water blocks oxygen preventing discoloration! Did you know this? Comment YES or NO! MindFacto brings a hack daily, tomorrow: stop milk boiling over!",
-   "query": "fresh water",
+   "dur": 6.83,
+   "narration": "इससे आपकी सब्जियां हफ्तों तक बिल्कुल ताज़ा रहेंगी। (This keeps your vegetables totally fresh for weeks.)",
+   "caption_en": "This keeps your vegetables totally fresh for weeks.",
+   "query": "taking out vegetables",
+   "alt": null,
+   "alt2": null
+  },
+  {
+   "i": 5,
+   "dur": 15.25,
+   "narration": "क्या यह ट्रिक पता थी? कमेंट में YES लिखें! MindFacto को सब्सक्राइब करें, कल: दूध उबलने से रोकने का तरीका! (Did you know this? Comment YES! Subscribe to MindFacto, tomorrow: a trick to stop boiling milk!)",
+   "caption_en": "Know this? Comment YES! Subscribe to MindFacto, tomorrow: milk boiling hack!",
+   "query": "fresh lettuce",
    "alt": null,
    "alt2": null
   }
