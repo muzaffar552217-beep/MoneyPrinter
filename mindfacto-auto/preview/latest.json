@@ -1,59 +1,50 @@
 {
- "title": "मुरझाई हरी सब्ज़ियों को ताज़ा करने का जादुई तरीका",
+ "title": "पत्तेदार सब्जियों को हफ्तों ताज़ा रखने का जादुई तरीका! #Shorts",
  "voice_engine": "edge-tts (hi-IN-MadhurNeural)",
  "footage": "Pixabay",
  "scenes": [
   {
    "i": 0,
-   "dur": 1.98,
-   "narration": "मुरझाई हरी सब्ज़ियाँ फिर से ताज़ा?",
-   "caption_en": "Wilted greens fresh again?",
-   "query": "adding ice cubes",
+   "dur": 1.88,
+   "narration": "सब्जियां जल्दी क्यों सड़ जाती हैं?",
+   "caption_en": "Why do vegetables rot so fast?",
+   "query": "paper towel",
    "alt": null,
    "alt2": null
   },
   {
    "i": 1,
-   "dur": 2.25,
-   "narration": "पत्ते मुरझा गए हों तो उन्हें फेंके नहीं!",
-   "caption_en": "Don't throw away wilted leaves!",
-   "query": "leafy greens",
+   "dur": 3.42,
+   "narration": "एक पेपर टॉवल को थोड़े से पानी से हल्का गीला कर लीजिए!",
+   "caption_en": "Dampen a paper towel with a little water!",
+   "query": "water drop",
    "alt": null,
    "alt2": null
   },
   {
    "i": 2,
-   "dur": 2.96,
-   "narration": "एक कटोरे में ठंडा बर्फ़ वाला पानी भर लें।",
-   "caption_en": "Fill a bowl with ice-cold water.",
-   "query": "kitchen sink",
+   "dur": 5.04,
+   "narration": "अब अपनी हरी पत्तेदार सब्जियों को इस गीले टॉवल में अच्छे से लपेटकर फ्रिज में रख दें।",
+   "caption_en": "Now wrap your leafy greens tightly in this damp towel and refrigerate.",
+   "query": "opening fridge",
    "alt": null,
    "alt2": null
   },
   {
    "i": 3,
-   "dur": 3.86,
-   "narration": "अब इन मुरझाए पत्तों को बीस मिनट के लिए उसमें डुबो दें।",
-   "caption_en": "Soak the wilted leaves in it for twenty minutes.",
-   "query": "fresh lettuce",
+   "dur": 5.29,
+   "narration": "यह नमी को बरकरार रखता है, जिससे पत्तियां हफ्तों तक बिल्कुल ताज़ा और क्रिस्पी रहती हैं!",
+   "caption_en": "It retains moisture, keeping leaves completely fresh and crispy for weeks!",
+   "query": "storing food",
    "alt": null,
    "alt2": null
   },
   {
    "i": 4,
-   "dur": 3.68,
-   "narration": "ठंडा पानी सोखकर पत्ते एकदम क्रिस्पी और ताज़ा हो जाते हैं!",
-   "caption_en": "Absorbing cold water makes leaves crispy and fresh!",
-   "query": "crisp vegetables",
-   "alt": null,
-   "alt2": null
-  },
-  {
-   "i": 5,
-   "dur": 12.32,
-   "narration": "क्या आप यह बात जानते थे? कमेंट में हाँ या ना बताएं! MindFacto हर दिन एक नया लाइफ हैक लाता है, कल देखिए: दूध उबलने से रोकने की ट्रिक! अभी सब्सक्राइब करें!",
-   "caption_en": "Did you know this? Comment yes or no! Subscribe to MindFacto for daily hacks!",
-   "query": "healthy salad",
+   "dur": 10.15,
+   "narration": "क्या यह ट्रिक पता थी? हाँ या ना में कमेंट करें! MindFacto लाता है हर दिन एक नया लाइफ हैक, कल का हैक: उबलते दूध को गिरने से रोकने का तरीका!",
+   "caption_en": "Did you know this trick? Comment yes or no! MindFacto brings a new life hack every day, tomorrow: a trick to stop milk from boiling over!",
+   "query": "green vegetables",
    "alt": null,
    "alt2": null
   }
