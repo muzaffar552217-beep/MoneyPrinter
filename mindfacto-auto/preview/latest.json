@@ -1,50 +1,59 @@
 {
- "title": "पत्तेदार सब्जियों को हफ्तों ताज़ा रखने का जादुई तरीका! #Shorts",
+ "title": "सेब को काला होने से कैसे बचाएं | Apple Browning Hack",
  "voice_engine": "edge-tts (hi-IN-MadhurNeural)",
  "footage": "Pixabay",
  "scenes": [
   {
    "i": 0,
-   "dur": 1.88,
-   "narration": "सब्जियां जल्दी क्यों सड़ जाती हैं?",
-   "caption_en": "Why do vegetables rot so fast?",
-   "query": "paper towel",
+   "dur": 3.01,
+   "narration": "सेब काला पड़ जाता है? रुको!",
+   "caption_en": "Apples turn brown? Wait!",
+   "query": "cutting apple",
    "alt": null,
    "alt2": null
   },
   {
    "i": 1,
-   "dur": 3.42,
-   "narration": "एक पेपर टॉवल को थोड़े से पानी से हल्का गीला कर लीजिए!",
-   "caption_en": "Dampen a paper towel with a little water!",
-   "query": "water drop",
+   "dur": 3.21,
+   "narration": "ताज़ा सेब को काटने के बाद तुरंत एक कटोरी पानी लें।",
+   "caption_en": "Take a bowl of water right after cutting fresh apples.",
+   "query": "fresh apples",
    "alt": null,
    "alt2": null
   },
   {
    "i": 2,
-   "dur": 5.04,
-   "narration": "अब अपनी हरी पत्तेदार सब्जियों को इस गीले टॉवल में अच्छे से लपेटकर फ्रिज में रख दें।",
-   "caption_en": "Now wrap your leafy greens tightly in this damp towel and refrigerate.",
-   "query": "opening fridge",
+   "dur": 3.01,
+   "narration": "अब इसमें चुटकी भर नमक डालकर अच्छे से मिला लें।",
+   "caption_en": "Now add a pinch of salt and mix well.",
+   "query": "kitchen counter",
    "alt": null,
    "alt2": null
   },
   {
    "i": 3,
-   "dur": 5.29,
-   "narration": "यह नमी को बरकरार रखता है, जिससे पत्तियां हफ्तों तक बिल्कुल ताज़ा और क्रिस्पी रहती हैं!",
-   "caption_en": "It retains moisture, keeping leaves completely fresh and crispy for weeks!",
-   "query": "storing food",
+   "dur": 4.03,
+   "narration": "कटे हुए सेब के टुकड़ों को इस नमकीन पानी में कुछ मिनट के लिए भिगो दें।",
+   "caption_en": "Soak the cut apple pieces in this salted water for a few minutes.",
+   "query": "pouring water",
    "alt": null,
    "alt2": null
   },
   {
    "i": 4,
-   "dur": 10.15,
-   "narration": "क्या यह ट्रिक पता थी? हाँ या ना में कमेंट करें! MindFacto लाता है हर दिन एक नया लाइफ हैक, कल का हैक: उबलते दूध को गिरने से रोकने का तरीका!",
-   "caption_en": "Did you know this trick? Comment yes or no! MindFacto brings a new life hack every day, tomorrow: a trick to stop milk from boiling over!",
-   "query": "green vegetables",
+   "dur": 5.15,
+   "narration": "नमक का पानी ऑक्सीकरण को रोकता है, जिससे सेब घंटों तक सफेद और ताज़ा रहता है!",
+   "caption_en": "Salt water stops oxidation, keeping apples white and fresh for hours!",
+   "query": "healthy snack",
+   "alt": null,
+   "alt2": null
+  },
+  {
+   "i": 5,
+   "dur": 8.94,
+   "narration": "क्या आप यह बात पहले से जानते थे? कमेंट में हाँ या ना लिखें! MindFacto को सब्सक्राइब करें, कल: दूध उफनने से रोकने की ट्रिक!",
+   "caption_en": "Did you know this? Comment YES or NO! Subscribe to MindFacto, tomorrow: a trick to stop milk from boiling over!",
+   "query": "smiling woman",
    "alt": null,
    "alt2": null
   }
