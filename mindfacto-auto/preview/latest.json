@@ -1,59 +1,68 @@
 {
- "title": "सेब को काला होने से कैसे बचाएं | Apple Browning Hack",
+ "title": "आलू को काला होने से कैसे रोकें",
  "voice_engine": "edge-tts (hi-IN-MadhurNeural)",
  "footage": "Pixabay",
  "scenes": [
   {
    "i": 0,
-   "dur": 3.01,
-   "narration": "सेब काला पड़ जाता है? रुको!",
-   "caption_en": "Apples turn brown? Wait!",
-   "query": "cutting apple",
+   "dur": 2.13,
+   "narration": "आलू काटते ही काले क्यों पड़ जाते हैं?",
+   "caption_en": "Why do cut potatoes turn black?",
+   "query": "cutting potato",
    "alt": null,
    "alt2": null
   },
   {
    "i": 1,
-   "dur": 3.21,
-   "narration": "ताज़ा सेब को काटने के बाद तुरंत एक कटोरी पानी लें।",
-   "caption_en": "Take a bowl of water right after cutting fresh apples.",
-   "query": "fresh apples",
+   "dur": 3.86,
+   "narration": "जब आप आलू काटते हैं, तो हवा से मिलकर वे ऑक्सीडाइज होते हैं।",
+   "caption_en": "When you cut potatoes, they oxidize with air.",
+   "query": "bowl",
    "alt": null,
    "alt2": null
   },
   {
    "i": 2,
-   "dur": 3.01,
-   "narration": "अब इसमें चुटकी भर नमक डालकर अच्छे से मिला लें।",
-   "caption_en": "Now add a pinch of salt and mix well.",
-   "query": "kitchen counter",
-   "alt": null,
-   "alt2": null
-  },
-  {
-   "i": 3,
-   "dur": 4.03,
-   "narration": "कटे हुए सेब के टुकड़ों को इस नमकीन पानी में कुछ मिनट के लिए भिगो दें।",
-   "caption_en": "Soak the cut apple pieces in this salted water for a few minutes.",
+   "dur": 2.11,
+   "narration": "इससे उनका रंग भूरा होने लगता है।",
+   "caption_en": "This causes their color to turn brown.",
    "query": "pouring water",
    "alt": null,
    "alt2": null
   },
   {
+   "i": 3,
+   "dur": 2.98,
+   "narration": "लेकिन फिक्र मत करो, मेरे पास एक मस्त ट्रिक है!",
+   "caption_en": "But don't worry, I have an awesome trick!",
+   "query": "kitchen counter",
+   "alt": null,
+   "alt2": null
+  },
+  {
    "i": 4,
-   "dur": 5.15,
-   "narration": "नमक का पानी ऑक्सीकरण को रोकता है, जिससे सेब घंटों तक सफेद और ताज़ा रहता है!",
-   "caption_en": "Salt water stops oxidation, keeping apples white and fresh for hours!",
-   "query": "healthy snack",
+   "dur": 3.2,
+   "narration": "बस कटे हुए आलू को ताजे पानी में पूरी तरह डुबो दें!",
+   "caption_en": "Just submerge the cut potatoes completely in fresh water!",
+   "query": "fresh water",
    "alt": null,
    "alt2": null
   },
   {
    "i": 5,
-   "dur": 8.94,
-   "narration": "क्या आप यह बात पहले से जानते थे? कमेंट में हाँ या ना लिखें! MindFacto को सब्सक्राइब करें, कल: दूध उफनने से रोकने की ट्रिक!",
-   "caption_en": "Did you know this? Comment YES or NO! Subscribe to MindFacto, tomorrow: a trick to stop milk from boiling over!",
-   "query": "smiling woman",
+   "dur": 3.31,
+   "narration": "पानी ऑक्सीजन को आलू की सतह तक पहुँचने से रोकता है।",
+   "caption_en": "Water stops oxygen from reaching the potato surface.",
+   "query": "kitchen sink",
+   "alt": null,
+   "alt2": null
+  },
+  {
+   "i": 6,
+   "dur": 7.73,
+   "narration": "Did you know this? Comment YES or NO! Subscribe to MindFacto, tomorrow: a trick to stop milk from boiling over!",
+   "caption_en": "Did you know this? Comment YES or NO! Subscribe to MindFacto for daily hacks!",
+   "query": "clean kitchen",
    "alt": null,
    "alt2": null
   }
